@@ -12,17 +12,20 @@ class MCCLoss(_Loss):
         mode: str,
         eps: float = 1e-5
     ):  
-        """Compute Mathews Correlation Coefficient Loss
+        """Compute Mathews Correlation Coefficient Loss for image segmentation task.
+        It only supports binary tasks
+
         Args:
             mode: Loss mode 'binary'
-            eps: Small epsilon for numerical stability    
+            eps: Small epsilon for numerical stability 
+
         Shape
              - **y_pred** - torch.Tensor of shape (N, C, H, W)
              - **y_true** - torch.Tensor of shape (N, H, W) or (N, C, H, W)
 
-        Return:
-        loss: torch.Tensor
-  
+        Reference
+            https://github.com/kakumarabhishek/
+            
         """
         assert mode in {BINARY_MODE}
         super(MCCLoss, self).__init__()
@@ -31,6 +34,16 @@ class MCCLoss(_Loss):
         self.eps = eps
   
     def forward(self, y_pred: torch.Tensor, y_true: torch.Tensor) -> torch.Tensor:
+
+        """
+        Args:
+            y_pred: torch.Tensor of shape (N, C, H, W)
+            y_true: torch.Tensor of shape (N, H, W) or (N, C, H, W)
+        
+        Returns:
+            loss: torch.Tensor
+        """      
+
         assert y_true.size(0) == y_pred.size(0)
 
         bs = y_true.size(0)
