@@ -21,11 +21,11 @@ class MCCLoss(_Loss):
 
         Shape
              - **y_pred** - torch.Tensor of shape (N, C, H, W)
-             - **y_true** - torch.Tensor of shape (N, H, W) or (N, C, H, W)
+             - **y_true** - torch.Tensor of shape (N, H, W)
 
         Reference
             https://github.com/kakumarabhishek/
-            
+
         """
         assert mode in {BINARY_MODE}
         super(MCCLoss, self).__init__()
@@ -38,7 +38,7 @@ class MCCLoss(_Loss):
         """
         Args:
             y_pred: torch.Tensor of shape (N, C, H, W)
-            y_true: torch.Tensor of shape (N, H, W) or (N, C, H, W)
+            y_true: torch.Tensor of shape (N, H, W) 
         
         Returns:
             loss: torch.Tensor
