@@ -1,0 +1,336 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>🔧 Insights &mdash; Segmentation Models  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/images/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/faculty.css" type="text/css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans|Roboto:400,700|Roboto+Mono:400,700&display=swap" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="📉 Losses" href="losses.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+  
+    <a class="heading heading-extra-margin" href="index.html">
+      <div class="logo-box logo-box-large">
+        <img class="logo" src="_static/logo.png"/>
+      </div>
+      
+        <span class="icon icon-home"> Segmentation Models</span>
+      
+    </a>
+  
+
+  
+    
+    
+      <div class="version">0.2.0</div>
+    
+  
+
+  
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">🛠 Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">⏳ Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">📦 Segmentation Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="encoders.html">🏔 Available Encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="encoders_timm.html">🪐 Timm Encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="losses.html">📉 Losses</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">🔧 Insights</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#models-architecture">1. Models architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-your-own-encoder">2. Creating your own encoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#aux-classification-output">3. Aux classification output</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Segmentation Models</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+
+  
+
+  
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+  <li class="breadcrumb"><a href="index.html">Segmentation Models</a> &raquo;</li>
+    
+  <li class="breadcrumb">🔧 Insights</li>
+
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/insights.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="insights">
+<h1>🔧 Insights<a class="headerlink" href="#insights" title="Permalink to this headline">¶</a></h1>
+<section id="models-architecture">
+<h2>1. Models architecture<a class="headerlink" href="#models-architecture" title="Permalink to this headline">¶</a></h2>
+<p>All segmentation models in SMP (this library short name) are made of:</p>
+<ul class="simple">
+<li><p>encoder (feature extractor, a.k.a backbone)</p></li>
+<li><p>decoder (features fusion block to create segmentation <em>mask</em>)</p></li>
+<li><p>segmentation head (final head to reduce number of channels from decoder and upsample mask to preserve input-output spatial resolution identity)</p></li>
+<li><p>classification head (optional head which build on top of deepest encoder features)</p></li>
+</ul>
+</section>
+<section id="creating-your-own-encoder">
+<h2>2. Creating your own encoder<a class="headerlink" href="#creating-your-own-encoder" title="Permalink to this headline">¶</a></h2>
+<p>Encoder is a “classification model” which extract features from image and pass it to decoder.
+Each encoder should have following attributes and methods and be inherited from <cite>segmentation_models_pytorch.encoders._base.EncoderMixin</cite></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyEncoder</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">EncoderMixin</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="c1"># A number of channels for each encoder feature tensor, list of integers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_out_channels</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">512</span><span class="p">]</span>
+
+        <span class="c1"># A number of stages in decoder (in other words number of downsampling operations), integer</span>
+        <span class="c1"># use in in forward pass to reduce number of returning features</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_depth</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span>
+
+        <span class="c1"># Default number of input channels in first Conv2d layer for encoder (usually 3)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_in_channels</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span>
+
+        <span class="c1"># Define encoder modules below</span>
+        <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Produce list of features of different spatial resolutions, each feature is a 4D torch.tensor of</span>
+<span class="sd">        shape NCHW (features should be sorted in descending order according to spatial resolution, starting</span>
+<span class="sd">        with resolution same as input `x` tensor).</span>
+
+<span class="sd">        Input: `x` with shape (1, 3, 64, 64)</span>
+<span class="sd">        Output: [f0, f1, f2, f3, f4, f5] - features with corresponding shapes</span>
+<span class="sd">                [(1, 3, 64, 64), (1, 64, 32, 32), (1, 128, 16, 16), (1, 256, 8, 8),</span>
+<span class="sd">                (1, 512, 4, 4), (1, 1024, 2, 2)] (C - dim may differ)</span>
+
+<span class="sd">        also should support number of features according to specified depth, e.g. if depth = 5,</span>
+<span class="sd">        number of feature tensors = 6 (one with same resolution as input and 5 downsampled),</span>
+<span class="sd">        depth = 3 -&gt; number of feature tensors = 4 (one with same resolution as input and 3 downsampled).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="n">feat1</span><span class="p">,</span> <span class="n">feat2</span><span class="p">,</span> <span class="n">feat3</span><span class="p">,</span> <span class="n">feat4</span><span class="p">,</span> <span class="n">feat5</span><span class="p">,</span> <span class="n">feat6</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>When you write your own Encoder class register its build parameters</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">smp</span><span class="o">.</span><span class="n">encoders</span><span class="o">.</span><span class="n">encoders</span><span class="p">[</span><span class="s2">&quot;my_awesome_encoder&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;encoder&quot;</span><span class="p">:</span> <span class="n">MyEncoder</span><span class="p">,</span> <span class="c1"># encoder class here</span>
+    <span class="s2">&quot;pretrained_settings&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;imagenet&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;mean&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">],</span>
+            <span class="s2">&quot;std&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">],</span>
+            <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://some-url.com/my-model-weights&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;input_space&quot;</span><span class="p">:</span> <span class="s2">&quot;RGB&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;input_range&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="p">},</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="c1"># init params for encoder if any</span>
+    <span class="p">},</span>
+<span class="p">},</span>
+</pre></div>
+</div>
+<p>Now you can use your encoder</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">smp</span><span class="o">.</span><span class="n">Unet</span><span class="p">(</span><span class="n">encoder_name</span><span class="o">=</span><span class="s2">&quot;my_awesome_encoder&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For better understanding see more examples of encoder in smp.encoders module.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If it works fine, don`t forget to contribute your work and make a PR to SMP 😉</p>
+</div>
+</section>
+<section id="aux-classification-output">
+<h2>3. Aux classification output<a class="headerlink" href="#aux-classification-output" title="Permalink to this headline">¶</a></h2>
+<p>All models support <code class="docutils literal notranslate"><span class="pre">aux_params</span></code> parameter, which is default set to <code class="docutils literal notranslate"><span class="pre">None</span></code>.
+If <code class="docutils literal notranslate"><span class="pre">aux_params</span> <span class="pre">=</span> <span class="pre">None</span></code> than classification auxiliary output is not created, else
+model produce not only <code class="docutils literal notranslate"><span class="pre">mask</span></code>, but also <code class="docutils literal notranslate"><span class="pre">label</span></code> output with shape <code class="docutils literal notranslate"><span class="pre">(N,</span> <span class="pre">C)</span></code>.</p>
+<p>Classification head consist of following layers:</p>
+<ol class="arabic simple">
+<li><p>GlobalPooling</p></li>
+<li><p>Dropout (optional)</p></li>
+<li><p>Linear</p></li>
+<li><p>Activation (optional)</p></li>
+</ol>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">aux_params</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+    <span class="n">pooling</span><span class="o">=</span><span class="s1">&#39;avg&#39;</span><span class="p">,</span>             <span class="c1"># one of &#39;avg&#39;, &#39;max&#39;</span>
+    <span class="n">dropout</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>               <span class="c1"># dropout ratio, default is None</span>
+    <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">,</span>      <span class="c1"># activation function, default is None</span>
+    <span class="n">classes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>                 <span class="c1"># define number of output labels</span>
+<span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">smp</span><span class="o">.</span><span class="n">Unet</span><span class="p">(</span><span class="s1">&#39;resnet34&#39;</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">aux_params</span><span class="o">=</span><span class="n">aux_params</span><span class="p">)</span>
+<span class="n">mask</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">mask</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">label</span><span class="o">.</span><span class="n">shape</span>
+<span class="c1"># (N, 4, H, W), (N, 4)</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="losses.html" class="btn btn-neutral float-left" title="📉 Losses" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Pavel Yakubovskiy
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

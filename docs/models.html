@@ -1,0 +1,723 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>📦 Segmentation Models &mdash; Segmentation Models  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/images/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/faculty.css" type="text/css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans|Roboto:400,700|Roboto+Mono:400,700&display=swap" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="🏔 Available Encoders" href="encoders.html" />
+    <link rel="prev" title="⏳ Quick Start" href="quickstart.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+  
+    <a class="heading heading-extra-margin" href="index.html">
+      <div class="logo-box logo-box-large">
+        <img class="logo" src="_static/logo.png"/>
+      </div>
+      
+        <span class="icon icon-home"> Segmentation Models</span>
+      
+    </a>
+  
+
+  
+    
+    
+      <div class="version">0.2.0</div>
+    
+  
+
+  
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">🛠 Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">⏳ Quick Start</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">📦 Segmentation Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#unet">Unet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">Unet++</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#manet">MAnet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#linknet">Linknet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fpn">FPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pspnet">PSPNet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pan">PAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deeplabv3">DeepLabV3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">DeepLabV3+</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="encoders.html">🏔 Available Encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="encoders_timm.html">🪐 Timm Encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="losses.html">📉 Losses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="insights.html">🔧 Insights</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Segmentation Models</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+
+  
+
+  
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+  <li class="breadcrumb"><a href="index.html">Segmentation Models</a> &raquo;</li>
+    
+  <li class="breadcrumb">📦 Segmentation Models</li>
+
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/models.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="segmentation-models">
+<h1>📦 Segmentation Models<a class="headerlink" href="#segmentation-models" title="Permalink to this headline">¶</a></h1>
+<section id="unet">
+<h2>Unet<a class="headerlink" href="#unet" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="segmentation_models_pytorch.Unet">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">segmentation_models_pytorch.</span></span><span class="sig-name descname"><span class="pre">Unet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">encoder_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'resnet34'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoder_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoder_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'imagenet'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoder_use_batchnorm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoder_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(256,</span> <span class="pre">128,</span> <span class="pre">64,</span> <span class="pre">32,</span> <span class="pre">16)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoder_attention_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aux_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/segmentation_models_pytorch/unet/model.html#Unet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#segmentation_models_pytorch.Unet" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://arxiv.org/abs/1505.04597">Unet</a> is a fully convolution neural network for image semantic segmentation. Consist of <em>encoder</em>
+and <em>decoder</em> parts connected with <em>skip connections</em>. Encoder extract features of different spatial
+resolution (skip connections) which are used by decoder to define accurate segmentation mask. Use <em>concatenation</em>
+for fusing decoder blocks with skip connections.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>encoder_name</strong> – Name of the classification model that will be used as an encoder (a.k.a backbone)
+to extract features of different spatial resolution</p></li>
+<li><p><strong>encoder_depth</strong> – A number of stages used in encoder in range [3, 5]. Each stage generate features
+two times smaller in spatial dimensions than previous one (e.g. for depth 0 we will have features
+with shapes [(N, C, H, W),], for depth 1 - [(N, C, H, W), (N, C, H // 2, W // 2)] and so on).
+Default is 5</p></li>
+<li><p><strong>encoder_weights</strong> – One of <strong>None</strong> (random initialization), <strong>“imagenet”</strong> (pre-training on ImageNet) and
+other pretrained weights (see table with available weights for each encoder_name)</p></li>
+<li><p><strong>decoder_channels</strong> – List of integers which specify <strong>in_channels</strong> parameter for convolutions used in decoder.
+Length of the list should be the same as <strong>encoder_depth</strong></p></li>
+<li><p><strong>decoder_use_batchnorm</strong> – If <strong>True</strong>, BatchNorm2d layer between Conv2D and Activation layers
+is used. If <strong>“inplace”</strong> InplaceABN will be used, allows to decrease memory consumption.
+Available options are <strong>True, False, “inplace”</strong></p></li>
+<li><p><strong>decoder_attention_type</strong> – Attention module used in decoder of the model. Available options are <strong>None</strong> and <strong>scse</strong>.
+SCSE paper - <a class="reference external" href="https://arxiv.org/abs/1808.08127">https://arxiv.org/abs/1808.08127</a></p></li>
+<li><p><strong>in_channels</strong> – A number of input channels for the model, default is 3 (RGB images)</p></li>
+<li><p><strong>classes</strong> – A number of classes for output mask (or you can think as a number of channels of output mask)</p></li>
+<li><p><strong>activation</strong> – An activation function to apply after the final convolution layer.
+Available options are <strong>“sigmoid”</strong>, <strong>“softmax”</strong>, <strong>“logsoftmax”</strong>, <strong>“tanh”</strong>, <strong>“identity”</strong>, <strong>callable</strong> and <strong>None</strong>.
+Default is <strong>None</strong></p></li>
+<li><p><strong>aux_params</strong> – <p>Dictionary with parameters of the auxiliary output (classification head). Auxiliary output is build
+on top of encoder if <strong>aux_params</strong> is not <strong>None</strong> (default). Supported params:</p>
+<blockquote>
+<div><ul>
+<li><p>classes (int): A number of classes</p></li>
+<li><p>pooling (str): One of “max”, “avg”. Default is “avg”</p></li>
+<li><p>dropout (float): Dropout factor in [0, 1)</p></li>
+<li><p>activation (str): An activation function to apply “sigmoid”/”softmax” (could be <strong>None</strong> to return logits)</p></li>
+</ul>
+</div></blockquote>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Unet</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="id2">
+<h2>Unet++<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="segmentation_models_pytorch.UnetPlusPlus">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">segmentation_models_pytorch.</span></span><span class="sig-name descname"><span class="pre">UnetPlusPlus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">encoder_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'resnet34'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoder_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoder_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'imagenet'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoder_use_batchnorm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoder_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(256,</span> <span class="pre">128,</span> <span class="pre">64,</span> <span class="pre">32,</span> <span class="pre">16)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoder_attention_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aux_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/segmentation_models_pytorch/unetplusplus/model.html#UnetPlusPlus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#segmentation_models_pytorch.UnetPlusPlus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unet++ is a fully convolution neural network for image semantic segmentation. Consist of <em>encoder</em>
+and <em>decoder</em> parts connected with <em>skip connections</em>. Encoder extract features of different spatial
+resolution (skip connections) which are used by decoder to define accurate segmentation mask. Decoder of
+Unet++ is more complex than in usual Unet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>encoder_name</strong> – Name of the classification model that will be used as an encoder (a.k.a backbone)
+to extract features of different spatial resolution</p></li>
+<li><p><strong>encoder_depth</strong> – A number of stages used in encoder in range [3, 5]. Each stage generate features
+two times smaller in spatial dimensions than previous one (e.g. for depth 0 we will have features
+with shapes [(N, C, H, W),], for depth 1 - [(N, C, H, W), (N, C, H // 2, W // 2)] and so on).
+Default is 5</p></li>
+<li><p><strong>encoder_weights</strong> – One of <strong>None</strong> (random initialization), <strong>“imagenet”</strong> (pre-training on ImageNet) and
+other pretrained weights (see table with available weights for each encoder_name)</p></li>
+<li><p><strong>decoder_channels</strong> – List of integers which specify <strong>in_channels</strong> parameter for convolutions used in decoder.
+Length of the list should be the same as <strong>encoder_depth</strong></p></li>
+<li><p><strong>decoder_use_batchnorm</strong> – If <strong>True</strong>, BatchNorm2d layer between Conv2D and Activation layers
+is used. If <strong>“inplace”</strong> InplaceABN will be used, allows to decrease memory consumption.
+Available options are <strong>True, False, “inplace”</strong></p></li>
+<li><p><strong>decoder_attention_type</strong> – Attention module used in decoder of the model. Available options are <strong>None</strong> and <strong>scse</strong>.
+SCSE paper - <a class="reference external" href="https://arxiv.org/abs/1808.08127">https://arxiv.org/abs/1808.08127</a></p></li>
+<li><p><strong>in_channels</strong> – A number of input channels for the model, default is 3 (RGB images)</p></li>
+<li><p><strong>classes</strong> – A number of classes for output mask (or you can think as a number of channels of output mask)</p></li>
+<li><p><strong>activation</strong> – An activation function to apply after the final convolution layer.
+Available options are <strong>“sigmoid”</strong>, <strong>“softmax”</strong>, <strong>“logsoftmax”</strong>, <strong>“tanh”</strong>, <strong>“identity”</strong>, <strong>callable</strong> and <strong>None</strong>.
+Default is <strong>None</strong></p></li>
+<li><p><strong>aux_params</strong> – <p>Dictionary with parameters of the auxiliary output (classification head). Auxiliary output is build
+on top of encoder if <strong>aux_params</strong> is not <strong>None</strong> (default). Supported params:</p>
+<blockquote>
+<div><ul>
+<li><p>classes (int): A number of classes</p></li>
+<li><p>pooling (str): One of “max”, “avg”. Default is “avg”</p></li>
+<li><p>dropout (float): Dropout factor in [0, 1)</p></li>
+<li><p>activation (str): An activation function to apply “sigmoid”/”softmax” (could be <strong>None</strong> to return logits)</p></li>
+</ul>
+</div></blockquote>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>Unet++</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Reference:</dt><dd><p><a class="reference external" href="https://arxiv.org/abs/1807.10165">https://arxiv.org/abs/1807.10165</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="manet">
+<h2>MAnet<a class="headerlink" href="#manet" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="segmentation_models_pytorch.MAnet">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">segmentation_models_pytorch.</span></span><span class="sig-name descname"><span class="pre">MAnet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">encoder_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'resnet34'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoder_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoder_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'imagenet'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoder_use_batchnorm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoder_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(256,</span> <span class="pre">128,</span> <span class="pre">64,</span> <span class="pre">32,</span> <span class="pre">16)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoder_pab_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">64</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aux_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/segmentation_models_pytorch/manet/model.html#MAnet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#segmentation_models_pytorch.MAnet" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://ieeexplore.ieee.org/abstract/document/9201310">MAnet</a> :  Multi-scale Attention Net. The MA-Net can capture rich contextual dependencies based on the attention mechanism,
+using two blocks:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Position-wise Attention Block (PAB), which captures the spatial dependencies between pixels in a global view</p></li>
+<li><p>Multi-scale Fusion Attention Block (MFAB), which  captures the channel dependencies between any feature map by
+multi-scale semantic feature fusion</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>encoder_name</strong> – Name of the classification model that will be used as an encoder (a.k.a backbone)
+to extract features of different spatial resolution</p></li>
+<li><p><strong>encoder_depth</strong> – A number of stages used in encoder in range [3, 5]. Each stage generate features
+two times smaller in spatial dimensions than previous one (e.g. for depth 0 we will have features
+with shapes [(N, C, H, W),], for depth 1 - [(N, C, H, W), (N, C, H // 2, W // 2)] and so on).
+Default is 5</p></li>
+<li><p><strong>encoder_weights</strong> – One of <strong>None</strong> (random initialization), <strong>“imagenet”</strong> (pre-training on ImageNet) and
+other pretrained weights (see table with available weights for each encoder_name)</p></li>
+<li><p><strong>decoder_channels</strong> – List of integers which specify <strong>in_channels</strong> parameter for convolutions used in decoder.
+Length of the list should be the same as <strong>encoder_depth</strong></p></li>
+<li><p><strong>decoder_use_batchnorm</strong> – If <strong>True</strong>, BatchNorm2d layer between Conv2D and Activation layers
+is used. If <strong>“inplace”</strong> InplaceABN will be used, allows to decrease memory consumption.
+Available options are <strong>True, False, “inplace”</strong></p></li>
+<li><p><strong>decoder_pab_channels</strong> – A number of channels for PAB module in decoder.
+Default is 64.</p></li>
+<li><p><strong>in_channels</strong> – A number of input channels for the model, default is 3 (RGB images)</p></li>
+<li><p><strong>classes</strong> – A number of classes for output mask (or you can think as a number of channels of output mask)</p></li>
+<li><p><strong>activation</strong> – An activation function to apply after the final convolution layer.
+Available options are <strong>“sigmoid”</strong>, <strong>“softmax”</strong>, <strong>“logsoftmax”</strong>, <strong>“tanh”</strong>, <strong>“identity”</strong>, <strong>callable</strong> and <strong>None</strong>.
+Default is <strong>None</strong></p></li>
+<li><p><strong>aux_params</strong> – <p>Dictionary with parameters of the auxiliary output (classification head). Auxiliary output is build
+on top of encoder if <strong>aux_params</strong> is not <strong>None</strong> (default). Supported params:</p>
+<blockquote>
+<div><ul>
+<li><p>classes (int): A number of classes</p></li>
+<li><p>pooling (str): One of “max”, “avg”. Default is “avg”</p></li>
+<li><p>dropout (float): Dropout factor in [0, 1)</p></li>
+<li><p>activation (str): An activation function to apply “sigmoid”/”softmax” (could be <strong>None</strong> to return logits)</p></li>
+</ul>
+</div></blockquote>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>MAnet</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="linknet">
+<h2>Linknet<a class="headerlink" href="#linknet" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="segmentation_models_pytorch.Linknet">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">segmentation_models_pytorch.</span></span><span class="sig-name descname"><span class="pre">Linknet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">encoder_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'resnet34'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoder_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoder_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'imagenet'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoder_use_batchnorm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aux_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/segmentation_models_pytorch/linknet/model.html#Linknet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#segmentation_models_pytorch.Linknet" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://arxiv.org/abs/1707.03718">Linknet</a> is a fully convolution neural network for image semantic segmentation. Consist of <em>encoder</em>
+and <em>decoder</em> parts connected with <em>skip connections</em>. Encoder extract features of different spatial
+resolution (skip connections) which are used by decoder to define accurate segmentation mask. Use <em>sum</em>
+for fusing decoder blocks with skip connections.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This implementation by default has 4 skip connections (original - 3).</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>encoder_name</strong> – Name of the classification model that will be used as an encoder (a.k.a backbone)
+to extract features of different spatial resolution</p></li>
+<li><p><strong>encoder_depth</strong> – A number of stages used in encoder in range [3, 5]. Each stage generate features
+two times smaller in spatial dimensions than previous one (e.g. for depth 0 we will have features
+with shapes [(N, C, H, W),], for depth 1 - [(N, C, H, W), (N, C, H // 2, W // 2)] and so on).
+Default is 5</p></li>
+<li><p><strong>encoder_weights</strong> – One of <strong>None</strong> (random initialization), <strong>“imagenet”</strong> (pre-training on ImageNet) and
+other pretrained weights (see table with available weights for each encoder_name)</p></li>
+<li><p><strong>decoder_use_batchnorm</strong> – If <strong>True</strong>, BatchNorm2d layer between Conv2D and Activation layers
+is used. If <strong>“inplace”</strong> InplaceABN will be used, allows to decrease memory consumption.
+Available options are <strong>True, False, “inplace”</strong></p></li>
+<li><p><strong>in_channels</strong> – A number of input channels for the model, default is 3 (RGB images)</p></li>
+<li><p><strong>classes</strong> – A number of classes for output mask (or you can think as a number of channels of output mask)</p></li>
+<li><p><strong>activation</strong> – An activation function to apply after the final convolution layer.
+Available options are <strong>“sigmoid”</strong>, <strong>“softmax”</strong>, <strong>“logsoftmax”</strong>, <strong>“tanh”</strong>, <strong>“identity”</strong>, <strong>callable</strong> and <strong>None</strong>.
+Default is <strong>None</strong></p></li>
+<li><p><strong>aux_params</strong> – <p>Dictionary with parameters of the auxiliary output (classification head). Auxiliary output is build
+on top of encoder if <strong>aux_params</strong> is not <strong>None</strong> (default). Supported params:</p>
+<blockquote>
+<div><ul>
+<li><p>classes (int): A number of classes</p></li>
+<li><p>pooling (str): One of “max”, “avg”. Default is “avg”</p></li>
+<li><p>dropout (float): Dropout factor in [0, 1)</p></li>
+<li><p>activation (str): An activation function to apply “sigmoid”/”softmax” (could be <strong>None</strong> to return logits)</p></li>
+</ul>
+</div></blockquote>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>Linknet</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="fpn">
+<h2>FPN<a class="headerlink" href="#fpn" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="segmentation_models_pytorch.FPN">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">segmentation_models_pytorch.</span></span><span class="sig-name descname"><span class="pre">FPN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">encoder_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'resnet34'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoder_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoder_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'imagenet'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoder_pyramid_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoder_segmentation_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoder_merge_policy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'add'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoder_dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upsampling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aux_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/segmentation_models_pytorch/fpn/model.html#FPN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#segmentation_models_pytorch.FPN" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="http://presentations.cocodataset.org/COCO17-Stuff-FAIR.pdf">FPN</a> is a fully convolution neural network for image semantic segmentation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>encoder_name</strong> – Name of the classification model that will be used as an encoder (a.k.a backbone)
+to extract features of different spatial resolution</p></li>
+<li><p><strong>encoder_depth</strong> – A number of stages used in encoder in range [3, 5]. Each stage generate features
+two times smaller in spatial dimensions than previous one (e.g. for depth 0 we will have features
+with shapes [(N, C, H, W),], for depth 1 - [(N, C, H, W), (N, C, H // 2, W // 2)] and so on).
+Default is 5</p></li>
+<li><p><strong>encoder_weights</strong> – One of <strong>None</strong> (random initialization), <strong>“imagenet”</strong> (pre-training on ImageNet) and
+other pretrained weights (see table with available weights for each encoder_name)</p></li>
+<li><p><strong>decoder_pyramid_channels</strong> – A number of convolution filters in Feature Pyramid of <a class="reference external" href="http://presentations.cocodataset.org/COCO17-Stuff-FAIR.pdf">FPN</a></p></li>
+<li><p><strong>decoder_segmentation_channels</strong> – A number of convolution filters in segmentation blocks of <a class="reference external" href="http://presentations.cocodataset.org/COCO17-Stuff-FAIR.pdf">FPN</a></p></li>
+<li><p><strong>decoder_merge_policy</strong> – Determines how to merge pyramid features inside FPN. Available options are <strong>add</strong> and <strong>cat</strong></p></li>
+<li><p><strong>decoder_dropout</strong> – Spatial dropout rate in range (0, 1) for feature pyramid in <a class="reference external" href="http://presentations.cocodataset.org/COCO17-Stuff-FAIR.pdf">FPN</a></p></li>
+<li><p><strong>in_channels</strong> – A number of input channels for the model, default is 3 (RGB images)</p></li>
+<li><p><strong>classes</strong> – A number of classes for output mask (or you can think as a number of channels of output mask)</p></li>
+<li><p><strong>activation</strong> – An activation function to apply after the final convolution layer.
+Available options are <strong>“sigmoid”</strong>, <strong>“softmax”</strong>, <strong>“logsoftmax”</strong>, <strong>“tanh”</strong>, <strong>“identity”</strong>, <strong>callable</strong> and <strong>None</strong>.
+Default is <strong>None</strong></p></li>
+<li><p><strong>upsampling</strong> – Final upsampling factor. Default is 4 to preserve input-output spatial shape identity</p></li>
+<li><p><strong>aux_params</strong> – <p>Dictionary with parameters of the auxiliary output (classification head). Auxiliary output is build
+on top of encoder if <strong>aux_params</strong> is not <strong>None</strong> (default). Supported params:</p>
+<blockquote>
+<div><ul>
+<li><p>classes (int): A number of classes</p></li>
+<li><p>pooling (str): One of “max”, “avg”. Default is “avg”</p></li>
+<li><p>dropout (float): Dropout factor in [0, 1)</p></li>
+<li><p>activation (str): An activation function to apply “sigmoid”/”softmax” (could be <strong>None</strong> to return logits)</p></li>
+</ul>
+</div></blockquote>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>FPN</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="pspnet">
+<h2>PSPNet<a class="headerlink" href="#pspnet" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="segmentation_models_pytorch.PSPNet">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">segmentation_models_pytorch.</span></span><span class="sig-name descname"><span class="pre">PSPNet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">encoder_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'resnet34'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoder_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'imagenet'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoder_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">psp_out_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">512</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">psp_use_batchnorm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">psp_dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upsampling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aux_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/segmentation_models_pytorch/pspnet/model.html#PSPNet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#segmentation_models_pytorch.PSPNet" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://arxiv.org/abs/1612.01105">PSPNet</a> is a fully convolution neural network for image semantic segmentation. Consist of
+<em>encoder</em> and <em>Spatial Pyramid</em> (decoder). Spatial Pyramid build on top of encoder and does not
+use “fine-features” (features of high spatial resolution). PSPNet can be used for multiclass segmentation
+of high resolution images, however it is not good for detecting small objects and producing accurate, pixel-level mask.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>encoder_name</strong> – Name of the classification model that will be used as an encoder (a.k.a backbone)
+to extract features of different spatial resolution</p></li>
+<li><p><strong>encoder_depth</strong> – A number of stages used in encoder in range [3, 5]. Each stage generate features
+two times smaller in spatial dimensions than previous one (e.g. for depth 0 we will have features
+with shapes [(N, C, H, W),], for depth 1 - [(N, C, H, W), (N, C, H // 2, W // 2)] and so on).
+Default is 5</p></li>
+<li><p><strong>encoder_weights</strong> – One of <strong>None</strong> (random initialization), <strong>“imagenet”</strong> (pre-training on ImageNet) and
+other pretrained weights (see table with available weights for each encoder_name)</p></li>
+<li><p><strong>psp_out_channels</strong> – A number of filters in Spatial Pyramid</p></li>
+<li><p><strong>psp_use_batchnorm</strong> – If <strong>True</strong>, BatchNorm2d layer between Conv2D and Activation layers
+is used. If <strong>“inplace”</strong> InplaceABN will be used, allows to decrease memory consumption.
+Available options are <strong>True, False, “inplace”</strong></p></li>
+<li><p><strong>psp_dropout</strong> – Spatial dropout rate in [0, 1) used in Spatial Pyramid</p></li>
+<li><p><strong>in_channels</strong> – A number of input channels for the model, default is 3 (RGB images)</p></li>
+<li><p><strong>classes</strong> – A number of classes for output mask (or you can think as a number of channels of output mask)</p></li>
+<li><p><strong>activation</strong> – An activation function to apply after the final convolution layer.
+Available options are <strong>“sigmoid”</strong>, <strong>“softmax”</strong>, <strong>“logsoftmax”</strong>, <strong>“tanh”</strong>, <strong>“identity”</strong>, <strong>callable</strong> and <strong>None</strong>.
+Default is <strong>None</strong></p></li>
+<li><p><strong>upsampling</strong> – Final upsampling factor. Default is 8 to preserve input-output spatial shape identity</p></li>
+<li><p><strong>aux_params</strong> – <p>Dictionary with parameters of the auxiliary output (classification head). Auxiliary output is build
+on top of encoder if <strong>aux_params</strong> is not <strong>None</strong> (default). Supported params:</p>
+<blockquote>
+<div><ul>
+<li><p>classes (int): A number of classes</p></li>
+<li><p>pooling (str): One of “max”, “avg”. Default is “avg”</p></li>
+<li><p>dropout (float): Dropout factor in [0, 1)</p></li>
+<li><p>activation (str): An activation function to apply “sigmoid”/”softmax” (could be <strong>None</strong> to return logits)</p></li>
+</ul>
+</div></blockquote>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>PSPNet</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="pan">
+<h2>PAN<a class="headerlink" href="#pan" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="segmentation_models_pytorch.PAN">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">segmentation_models_pytorch.</span></span><span class="sig-name descname"><span class="pre">PAN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">encoder_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'resnet34'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoder_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'imagenet'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoder_output_stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoder_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upsampling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aux_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/segmentation_models_pytorch/pan/model.html#PAN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#segmentation_models_pytorch.PAN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implementation of <a class="reference external" href="https://arxiv.org/abs/1805.10180">PAN</a> (Pyramid Attention Network).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Currently works with shape of input tensor &gt;= [B x C x 128 x 128] for pytorch &lt;= 1.1.0
+and with shape of input tensor &gt;= [B x C x 256 x 256] for pytorch == 1.3.1</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>encoder_name</strong> – Name of the classification model that will be used as an encoder (a.k.a backbone)
+to extract features of different spatial resolution</p></li>
+<li><p><strong>encoder_weights</strong> – One of <strong>None</strong> (random initialization), <strong>“imagenet”</strong> (pre-training on ImageNet) and
+other pretrained weights (see table with available weights for each encoder_name)</p></li>
+<li><p><strong>encoder_output_stride</strong> – 16 or 32, if 16 use dilation in encoder last layer.
+Doesn’t work with <strong>*ception*</strong>, <strong>vgg*</strong>, <strong>densenet*`</strong> backbones.Default is 16.</p></li>
+<li><p><strong>decoder_channels</strong> – A number of convolution layer filters in decoder blocks</p></li>
+<li><p><strong>in_channels</strong> – A number of input channels for the model, default is 3 (RGB images)</p></li>
+<li><p><strong>classes</strong> – A number of classes for output mask (or you can think as a number of channels of output mask)</p></li>
+<li><p><strong>activation</strong> – An activation function to apply after the final convolution layer.
+Available options are <strong>“sigmoid”</strong>, <strong>“softmax”</strong>, <strong>“logsoftmax”</strong>, <strong>“tanh”</strong>, <strong>“identity”</strong>, <strong>callable</strong> and <strong>None</strong>.
+Default is <strong>None</strong></p></li>
+<li><p><strong>upsampling</strong> – Final upsampling factor. Default is 4 to preserve input-output spatial shape identity</p></li>
+<li><p><strong>aux_params</strong> – <p>Dictionary with parameters of the auxiliary output (classification head). Auxiliary output is build
+on top of encoder if <strong>aux_params</strong> is not <strong>None</strong> (default). Supported params:</p>
+<blockquote>
+<div><ul>
+<li><p>classes (int): A number of classes</p></li>
+<li><p>pooling (str): One of “max”, “avg”. Default is “avg”</p></li>
+<li><p>dropout (float): Dropout factor in [0, 1)</p></li>
+<li><p>activation (str): An activation function to apply “sigmoid”/”softmax” (could be <strong>None</strong> to return logits)</p></li>
+</ul>
+</div></blockquote>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>PAN</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="deeplabv3">
+<h2>DeepLabV3<a class="headerlink" href="#deeplabv3" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="segmentation_models_pytorch.DeepLabV3">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">segmentation_models_pytorch.</span></span><span class="sig-name descname"><span class="pre">DeepLabV3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">encoder_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'resnet34'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoder_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoder_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'imagenet'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoder_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upsampling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aux_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/segmentation_models_pytorch/deeplabv3/model.html#DeepLabV3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#segmentation_models_pytorch.DeepLabV3" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://arxiv.org/abs/1706.05587">DeepLabV3</a> implementation from “Rethinking Atrous Convolution for Semantic Image Segmentation”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>encoder_name</strong> – Name of the classification model that will be used as an encoder (a.k.a backbone)
+to extract features of different spatial resolution</p></li>
+<li><p><strong>encoder_depth</strong> – A number of stages used in encoder in range [3, 5]. Each stage generate features
+two times smaller in spatial dimensions than previous one (e.g. for depth 0 we will have features
+with shapes [(N, C, H, W),], for depth 1 - [(N, C, H, W), (N, C, H // 2, W // 2)] and so on).
+Default is 5</p></li>
+<li><p><strong>encoder_weights</strong> – One of <strong>None</strong> (random initialization), <strong>“imagenet”</strong> (pre-training on ImageNet) and
+other pretrained weights (see table with available weights for each encoder_name)</p></li>
+<li><p><strong>decoder_channels</strong> – A number of convolution filters in ASPP module. Default is 256</p></li>
+<li><p><strong>in_channels</strong> – A number of input channels for the model, default is 3 (RGB images)</p></li>
+<li><p><strong>classes</strong> – A number of classes for output mask (or you can think as a number of channels of output mask)</p></li>
+<li><p><strong>activation</strong> – An activation function to apply after the final convolution layer.
+Available options are <strong>“sigmoid”</strong>, <strong>“softmax”</strong>, <strong>“logsoftmax”</strong>, <strong>“tanh”</strong>, <strong>“identity”</strong>, <strong>callable</strong> and <strong>None</strong>.
+Default is <strong>None</strong></p></li>
+<li><p><strong>upsampling</strong> – Final upsampling factor. Default is 8 to preserve input-output spatial shape identity</p></li>
+<li><p><strong>aux_params</strong> – <p>Dictionary with parameters of the auxiliary output (classification head). Auxiliary output is build
+on top of encoder if <strong>aux_params</strong> is not <strong>None</strong> (default). Supported params:</p>
+<blockquote>
+<div><ul>
+<li><p>classes (int): A number of classes</p></li>
+<li><p>pooling (str): One of “max”, “avg”. Default is “avg”</p></li>
+<li><p>dropout (float): Dropout factor in [0, 1)</p></li>
+<li><p>activation (str): An activation function to apply “sigmoid”/”softmax” (could be <strong>None</strong> to return logits)</p></li>
+</ul>
+</div></blockquote>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>DeepLabV3</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="id9">
+<h2>DeepLabV3+<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="segmentation_models_pytorch.DeepLabV3Plus">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">segmentation_models_pytorch.</span></span><span class="sig-name descname"><span class="pre">DeepLabV3Plus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">encoder_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'resnet34'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoder_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoder_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'imagenet'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoder_output_stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoder_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoder_atrous_rates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(12,</span> <span class="pre">24,</span> <span class="pre">36)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upsampling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aux_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/segmentation_models_pytorch/deeplabv3/model.html#DeepLabV3Plus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#segmentation_models_pytorch.DeepLabV3Plus" title="Permalink to this definition">¶</a></dt>
+<dd><p>DeepLabV3+ implementation from “Encoder-Decoder with Atrous Separable
+Convolution for Semantic Image Segmentation”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>encoder_name</strong> – Name of the classification model that will be used as an encoder (a.k.a backbone)
+to extract features of different spatial resolution</p></li>
+<li><p><strong>encoder_depth</strong> – A number of stages used in encoder in range [3, 5]. Each stage generate features
+two times smaller in spatial dimensions than previous one (e.g. for depth 0 we will have features
+with shapes [(N, C, H, W),], for depth 1 - [(N, C, H, W), (N, C, H // 2, W // 2)] and so on).
+Default is 5</p></li>
+<li><p><strong>encoder_weights</strong> – One of <strong>None</strong> (random initialization), <strong>“imagenet”</strong> (pre-training on ImageNet) and
+other pretrained weights (see table with available weights for each encoder_name)</p></li>
+<li><p><strong>encoder_output_stride</strong> – Downsampling factor for last encoder features (see original paper for explanation)</p></li>
+<li><p><strong>decoder_atrous_rates</strong> – Dilation rates for ASPP module (should be a tuple of 3 integer values)</p></li>
+<li><p><strong>decoder_channels</strong> – A number of convolution filters in ASPP module. Default is 256</p></li>
+<li><p><strong>in_channels</strong> – A number of input channels for the model, default is 3 (RGB images)</p></li>
+<li><p><strong>classes</strong> – A number of classes for output mask (or you can think as a number of channels of output mask)</p></li>
+<li><p><strong>activation</strong> – An activation function to apply after the final convolution layer.
+Available options are <strong>“sigmoid”</strong>, <strong>“softmax”</strong>, <strong>“logsoftmax”</strong>, <strong>“tanh”</strong>, <strong>“identity”</strong>, <strong>callable</strong> and <strong>None</strong>.
+Default is <strong>None</strong></p></li>
+<li><p><strong>upsampling</strong> – Final upsampling factor. Default is 4 to preserve input-output spatial shape identity</p></li>
+<li><p><strong>aux_params</strong> – <p>Dictionary with parameters of the auxiliary output (classification head). Auxiliary output is build
+on top of encoder if <strong>aux_params</strong> is not <strong>None</strong> (default). Supported params:</p>
+<blockquote>
+<div><ul>
+<li><p>classes (int): A number of classes</p></li>
+<li><p>pooling (str): One of “max”, “avg”. Default is “avg”</p></li>
+<li><p>dropout (float): Dropout factor in [0, 1)</p></li>
+<li><p>activation (str): An activation function to apply “sigmoid”/”softmax” (could be <strong>None</strong> to return logits)</p></li>
+</ul>
+</div></blockquote>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>DeepLabV3Plus</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Reference:</dt><dd><p><a class="reference external" href="https://arxiv.org/abs/1802.02611v3">https://arxiv.org/abs/1802.02611v3</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="encoders.html" class="btn btn-neutral float-right" title="🏔 Available Encoders" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="quickstart.html" class="btn btn-neutral float-left" title="⏳ Quick Start" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Pavel Yakubovskiy
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,948 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>🏔 Available Encoders &mdash; Segmentation Models  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/images/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/faculty.css" type="text/css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans|Roboto:400,700|Roboto+Mono:400,700&display=swap" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="🪐 Timm Encoders" href="encoders_timm.html" />
+    <link rel="prev" title="📦 Segmentation Models" href="models.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+  
+    <a class="heading heading-extra-margin" href="index.html">
+      <div class="logo-box logo-box-large">
+        <img class="logo" src="_static/logo.png"/>
+      </div>
+      
+        <span class="icon icon-home"> Segmentation Models</span>
+      
+    </a>
+  
+
+  
+    
+    
+      <div class="version">0.2.0</div>
+    
+  
+
+  
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">🛠 Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">⏳ Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">📦 Segmentation Models</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">🏔 Available Encoders</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#resnet">ResNet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#resnext">ResNeXt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#resnest">ResNeSt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#res2ne-x-t">Res2Ne(X)t</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#regnet-x-y">RegNet(x/y)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gernet">GERNet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#se-net">SE-Net</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sk-resne-x-t">SK-ResNe(X)t</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#densenet">DenseNet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inception">Inception</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#efficientnet">EfficientNet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mobilenet">MobileNet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dpn">DPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vgg">VGG</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="encoders_timm.html">🪐 Timm Encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="losses.html">📉 Losses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="insights.html">🔧 Insights</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Segmentation Models</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+
+  
+
+  
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+  <li class="breadcrumb"><a href="index.html">Segmentation Models</a> &raquo;</li>
+    
+  <li class="breadcrumb">🏔 Available Encoders</li>
+
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/encoders.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="available-encoders">
+<h1>🏔 Available Encoders<a class="headerlink" href="#available-encoders" title="Permalink to this headline">¶</a></h1>
+<section id="resnet">
+<h2>ResNet<a class="headerlink" href="#resnet" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 49%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Encoder</p></th>
+<th class="head"><p>Weights</p></th>
+<th class="head"><p>Params, M</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>resnet18</p></td>
+<td><p>imagenet / ssl / swsl</p></td>
+<td><p>11M</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnet34</p></td>
+<td><p>imagenet</p></td>
+<td><p>21M</p></td>
+</tr>
+<tr class="row-even"><td><p>resnet50</p></td>
+<td><p>imagenet / ssl / swsl</p></td>
+<td><p>23M</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnet101</p></td>
+<td><p>imagenet</p></td>
+<td><p>42M</p></td>
+</tr>
+<tr class="row-even"><td><p>resnet152</p></td>
+<td><p>imagenet</p></td>
+<td><p>58M</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="resnext">
+<h2>ResNeXt<a class="headerlink" href="#resnext" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 51%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Encoder</p></th>
+<th class="head"><p>Weights</p></th>
+<th class="head"><p>Params, M</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>resnext50_32x4d</p></td>
+<td><p>imagenet / ssl / swsl</p></td>
+<td><p>22M</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnext101_32x4d</p></td>
+<td><p>ssl / swsl</p></td>
+<td><p>42M</p></td>
+</tr>
+<tr class="row-even"><td><p>resnext101_32x8d</p></td>
+<td><p>imagenet / instagram / ssl / swsl</p></td>
+<td><p>86M</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnext101_32x16d</p></td>
+<td><p>instagram / ssl / swsl</p></td>
+<td><p>191M</p></td>
+</tr>
+<tr class="row-even"><td><p>resnext101_32x32d</p></td>
+<td><p>instagram</p></td>
+<td><p>466M</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnext101_32x48d</p></td>
+<td><p>instagram</p></td>
+<td><p>826M</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="resnest">
+<h2>ResNeSt<a class="headerlink" href="#resnest" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 53%" />
+<col style="width: 23%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Encoder</p></th>
+<th class="head"><p>Weights</p></th>
+<th class="head"><p>Params, M</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>timm-resnest14d</p></td>
+<td><p>imagenet</p></td>
+<td><p>8M</p></td>
+</tr>
+<tr class="row-odd"><td><p>timm-resnest26d</p></td>
+<td><p>imagenet</p></td>
+<td><p>15M</p></td>
+</tr>
+<tr class="row-even"><td><p>timm-resnest50d</p></td>
+<td><p>imagenet</p></td>
+<td><p>25M</p></td>
+</tr>
+<tr class="row-odd"><td><p>timm-resnest101e</p></td>
+<td><p>imagenet</p></td>
+<td><p>46M</p></td>
+</tr>
+<tr class="row-even"><td><p>timm-resnest200e</p></td>
+<td><p>imagenet</p></td>
+<td><p>68M</p></td>
+</tr>
+<tr class="row-odd"><td><p>timm-resnest269e</p></td>
+<td><p>imagenet</p></td>
+<td><p>108M</p></td>
+</tr>
+<tr class="row-even"><td><p>timm-resnest50d_4s2x40d</p></td>
+<td><p>imagenet</p></td>
+<td><p>28M</p></td>
+</tr>
+<tr class="row-odd"><td><p>timm-resnest50d_1s4x24d</p></td>
+<td><p>imagenet</p></td>
+<td><p>23M</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="res2ne-x-t">
+<h2>Res2Ne(X)t<a class="headerlink" href="#res2ne-x-t" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 53%" />
+<col style="width: 23%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Encoder</p></th>
+<th class="head"><p>Weights</p></th>
+<th class="head"><p>Params, M</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>timm-res2net50_26w_4s</p></td>
+<td><p>imagenet</p></td>
+<td><p>23M</p></td>
+</tr>
+<tr class="row-odd"><td><p>timm-res2net101_26w_4s</p></td>
+<td><p>imagenet</p></td>
+<td><p>43M</p></td>
+</tr>
+<tr class="row-even"><td><p>timm-res2net50_26w_6s</p></td>
+<td><p>imagenet</p></td>
+<td><p>35M</p></td>
+</tr>
+<tr class="row-odd"><td><p>timm-res2net50_26w_8s</p></td>
+<td><p>imagenet</p></td>
+<td><p>46M</p></td>
+</tr>
+<tr class="row-even"><td><p>timm-res2net50_48w_2s</p></td>
+<td><p>imagenet</p></td>
+<td><p>23M</p></td>
+</tr>
+<tr class="row-odd"><td><p>timm-res2net50_14w_8s</p></td>
+<td><p>imagenet</p></td>
+<td><p>23M</p></td>
+</tr>
+<tr class="row-even"><td><p>timm-res2next50</p></td>
+<td><p>imagenet</p></td>
+<td><p>22M</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="regnet-x-y">
+<h2>RegNet(x/y)<a class="headerlink" href="#regnet-x-y" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 26%" />
+<col style="width: 28%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Encoder</p></th>
+<th class="head"><p>Weights</p></th>
+<th class="head"><p>Params, M</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>timm-regnetx_002</p></td>
+<td><p>imagenet</p></td>
+<td><p>2M</p></td>
+</tr>
+<tr class="row-odd"><td><p>timm-regnetx_004</p></td>
+<td><p>imagenet</p></td>
+<td><p>4M</p></td>
+</tr>
+<tr class="row-even"><td><p>timm-regnetx_006</p></td>
+<td><p>imagenet</p></td>
+<td><p>5M</p></td>
+</tr>
+<tr class="row-odd"><td><p>timm-regnetx_008</p></td>
+<td><p>imagenet</p></td>
+<td><p>6M</p></td>
+</tr>
+<tr class="row-even"><td><p>timm-regnetx_016</p></td>
+<td><p>imagenet</p></td>
+<td><p>8M</p></td>
+</tr>
+<tr class="row-odd"><td><p>timm-regnetx_032</p></td>
+<td><p>imagenet</p></td>
+<td><p>14M</p></td>
+</tr>
+<tr class="row-even"><td><p>timm-regnetx_040</p></td>
+<td><p>imagenet</p></td>
+<td><p>20M</p></td>
+</tr>
+<tr class="row-odd"><td><p>timm-regnetx_064</p></td>
+<td><p>imagenet</p></td>
+<td><p>24M</p></td>
+</tr>
+<tr class="row-even"><td><p>timm-regnetx_080</p></td>
+<td><p>imagenet</p></td>
+<td><p>37M</p></td>
+</tr>
+<tr class="row-odd"><td><p>timm-regnetx_120</p></td>
+<td><p>imagenet</p></td>
+<td><p>43M</p></td>
+</tr>
+<tr class="row-even"><td><p>timm-regnetx_160</p></td>
+<td><p>imagenet</p></td>
+<td><p>52M</p></td>
+</tr>
+<tr class="row-odd"><td><p>timm-regnetx_320</p></td>
+<td><p>imagenet</p></td>
+<td><p>105M</p></td>
+</tr>
+<tr class="row-even"><td><p>timm-regnety_002</p></td>
+<td><p>imagenet</p></td>
+<td><p>2M</p></td>
+</tr>
+<tr class="row-odd"><td><p>timm-regnety_004</p></td>
+<td><p>imagenet</p></td>
+<td><p>3M</p></td>
+</tr>
+<tr class="row-even"><td><p>timm-regnety_006</p></td>
+<td><p>imagenet</p></td>
+<td><p>5M</p></td>
+</tr>
+<tr class="row-odd"><td><p>timm-regnety_008</p></td>
+<td><p>imagenet</p></td>
+<td><p>5M</p></td>
+</tr>
+<tr class="row-even"><td><p>timm-regnety_016</p></td>
+<td><p>imagenet</p></td>
+<td><p>10M</p></td>
+</tr>
+<tr class="row-odd"><td><p>timm-regnety_032</p></td>
+<td><p>imagenet</p></td>
+<td><p>17M</p></td>
+</tr>
+<tr class="row-even"><td><p>timm-regnety_040</p></td>
+<td><p>imagenet</p></td>
+<td><p>19M</p></td>
+</tr>
+<tr class="row-odd"><td><p>timm-regnety_064</p></td>
+<td><p>imagenet</p></td>
+<td><p>29M</p></td>
+</tr>
+<tr class="row-even"><td><p>timm-regnety_080</p></td>
+<td><p>imagenet</p></td>
+<td><p>37M</p></td>
+</tr>
+<tr class="row-odd"><td><p>timm-regnety_120</p></td>
+<td><p>imagenet</p></td>
+<td><p>49M</p></td>
+</tr>
+<tr class="row-even"><td><p>timm-regnety_160</p></td>
+<td><p>imagenet</p></td>
+<td><p>80M</p></td>
+</tr>
+<tr class="row-odd"><td><p>timm-regnety_320</p></td>
+<td><p>imagenet</p></td>
+<td><p>141M</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="gernet">
+<h2>GERNet<a class="headerlink" href="#gernet" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 24%" />
+<col style="width: 26%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Encoder</p></th>
+<th class="head"><p>Weights</p></th>
+<th class="head"><p>Params, M</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>timm-gernet_s</p></td>
+<td><p>imagenet</p></td>
+<td><p>6M</p></td>
+</tr>
+<tr class="row-odd"><td><p>timm-gernet_m</p></td>
+<td><p>imagenet</p></td>
+<td><p>18M</p></td>
+</tr>
+<tr class="row-even"><td><p>timm-gernet_l</p></td>
+<td><p>imagenet</p></td>
+<td><p>28M</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="se-net">
+<h2>SE-Net<a class="headerlink" href="#se-net" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 24%" />
+<col style="width: 26%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Encoder</p></th>
+<th class="head"><p>Weights</p></th>
+<th class="head"><p>Params, M</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>senet154</p></td>
+<td><p>imagenet</p></td>
+<td><p>113M</p></td>
+</tr>
+<tr class="row-odd"><td><p>se_resnet50</p></td>
+<td><p>imagenet</p></td>
+<td><p>26M</p></td>
+</tr>
+<tr class="row-even"><td><p>se_resnet101</p></td>
+<td><p>imagenet</p></td>
+<td><p>47M</p></td>
+</tr>
+<tr class="row-odd"><td><p>se_resnet152</p></td>
+<td><p>imagenet</p></td>
+<td><p>64M</p></td>
+</tr>
+<tr class="row-even"><td><p>se_resnext50_32x4d</p></td>
+<td><p>imagenet</p></td>
+<td><p>25M</p></td>
+</tr>
+<tr class="row-odd"><td><p>se_resnext101_32x4d</p></td>
+<td><p>imagenet</p></td>
+<td><p>46M</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sk-resne-x-t">
+<h2>SK-ResNe(X)t<a class="headerlink" href="#sk-resne-x-t" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 52%" />
+<col style="width: 23%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Encoder</p></th>
+<th class="head"><p>Weights</p></th>
+<th class="head"><p>Params, M</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>timm-skresnet18</p></td>
+<td><p>imagenet</p></td>
+<td><p>11M</p></td>
+</tr>
+<tr class="row-odd"><td><p>timm-skresnet34</p></td>
+<td><p>imagenet</p></td>
+<td><p>21M</p></td>
+</tr>
+<tr class="row-even"><td><p>timm-skresnext50_32x4d</p></td>
+<td><p>imagenet</p></td>
+<td><p>25M</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="densenet">
+<h2>DenseNet<a class="headerlink" href="#densenet" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 38%" />
+<col style="width: 30%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Encoder</p></th>
+<th class="head"><p>Weights</p></th>
+<th class="head"><p>Params, M</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>densenet121</p></td>
+<td><p>imagenet</p></td>
+<td><p>6M</p></td>
+</tr>
+<tr class="row-odd"><td><p>densenet169</p></td>
+<td><p>imagenet</p></td>
+<td><p>12M</p></td>
+</tr>
+<tr class="row-even"><td><p>densenet201</p></td>
+<td><p>imagenet</p></td>
+<td><p>18M</p></td>
+</tr>
+<tr class="row-odd"><td><p>densenet161</p></td>
+<td><p>imagenet</p></td>
+<td><p>26M</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="inception">
+<h2>Inception<a class="headerlink" href="#inception" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 50%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Encoder</p></th>
+<th class="head"><p>Weights</p></th>
+<th class="head"><p>Params, M</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>inceptionresnetv2</p></td>
+<td><p>imagenet / imagenet+background</p></td>
+<td><p>54M</p></td>
+</tr>
+<tr class="row-odd"><td><p>inceptionv4</p></td>
+<td><p>imagenet / imagenet+background</p></td>
+<td><p>41M</p></td>
+</tr>
+<tr class="row-even"><td><p>xception</p></td>
+<td><p>imagenet</p></td>
+<td><p>22M</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="efficientnet">
+<h2>EfficientNet<a class="headerlink" href="#efficientnet" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 51%" />
+<col style="width: 17%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Encoder</p></th>
+<th class="head"><p>Weights</p></th>
+<th class="head"><p>Params, M</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>efficientnet-b0</p></td>
+<td><p>imagenet</p></td>
+<td><p>4M</p></td>
+</tr>
+<tr class="row-odd"><td><p>efficientnet-b1</p></td>
+<td><p>imagenet</p></td>
+<td><p>6M</p></td>
+</tr>
+<tr class="row-even"><td><p>efficientnet-b2</p></td>
+<td><p>imagenet</p></td>
+<td><p>7M</p></td>
+</tr>
+<tr class="row-odd"><td><p>efficientnet-b3</p></td>
+<td><p>imagenet</p></td>
+<td><p>10M</p></td>
+</tr>
+<tr class="row-even"><td><p>efficientnet-b4</p></td>
+<td><p>imagenet</p></td>
+<td><p>17M</p></td>
+</tr>
+<tr class="row-odd"><td><p>efficientnet-b5</p></td>
+<td><p>imagenet</p></td>
+<td><p>28M</p></td>
+</tr>
+<tr class="row-even"><td><p>efficientnet-b6</p></td>
+<td><p>imagenet</p></td>
+<td><p>40M</p></td>
+</tr>
+<tr class="row-odd"><td><p>efficientnet-b7</p></td>
+<td><p>imagenet</p></td>
+<td><p>63M</p></td>
+</tr>
+<tr class="row-even"><td><p>timm-efficientnet-b0</p></td>
+<td><p>imagenet / advprop / noisy-student</p></td>
+<td><p>4M</p></td>
+</tr>
+<tr class="row-odd"><td><p>timm-efficientnet-b1</p></td>
+<td><p>imagenet / advprop / noisy-student</p></td>
+<td><p>6M</p></td>
+</tr>
+<tr class="row-even"><td><p>timm-efficientnet-b2</p></td>
+<td><p>imagenet / advprop / noisy-student</p></td>
+<td><p>7M</p></td>
+</tr>
+<tr class="row-odd"><td><p>timm-efficientnet-b3</p></td>
+<td><p>imagenet / advprop / noisy-student</p></td>
+<td><p>10M</p></td>
+</tr>
+<tr class="row-even"><td><p>timm-efficientnet-b4</p></td>
+<td><p>imagenet / advprop / noisy-student</p></td>
+<td><p>17M</p></td>
+</tr>
+<tr class="row-odd"><td><p>timm-efficientnet-b5</p></td>
+<td><p>imagenet / advprop / noisy-student</p></td>
+<td><p>28M</p></td>
+</tr>
+<tr class="row-even"><td><p>timm-efficientnet-b6</p></td>
+<td><p>imagenet / advprop / noisy-student</p></td>
+<td><p>40M</p></td>
+</tr>
+<tr class="row-odd"><td><p>timm-efficientnet-b7</p></td>
+<td><p>imagenet / advprop / noisy-student</p></td>
+<td><p>63M</p></td>
+</tr>
+<tr class="row-even"><td><p>timm-efficientnet-b8</p></td>
+<td><p>imagenet / advprop</p></td>
+<td><p>84M</p></td>
+</tr>
+<tr class="row-odd"><td><p>timm-efficientnet-l2</p></td>
+<td><p>noisy-student</p></td>
+<td><p>474M</p></td>
+</tr>
+<tr class="row-even"><td><p>timm-efficientnet-lite0</p></td>
+<td><p>imagenet</p></td>
+<td><p>4M</p></td>
+</tr>
+<tr class="row-odd"><td><p>timm-efficientnet-lite1</p></td>
+<td><p>imagenet</p></td>
+<td><p>4M</p></td>
+</tr>
+<tr class="row-even"><td><p>timm-efficientnet-lite2</p></td>
+<td><p>imagenet</p></td>
+<td><p>6M</p></td>
+</tr>
+<tr class="row-odd"><td><p>timm-efficientnet-lite3</p></td>
+<td><p>imagenet</p></td>
+<td><p>8M</p></td>
+</tr>
+<tr class="row-even"><td><p>timm-efficientnet-lite4</p></td>
+<td><p>imagenet</p></td>
+<td><p>13M</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="mobilenet">
+<h2>MobileNet<a class="headerlink" href="#mobilenet" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 61%" />
+<col style="width: 19%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Encoder</p></th>
+<th class="head"><p>Weights</p></th>
+<th class="head"><p>Params, M</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>mobilenet_v2</p></td>
+<td><p>imagenet</p></td>
+<td><p>2M</p></td>
+</tr>
+<tr class="row-odd"><td><p>timm-mobilenetv3_large_075</p></td>
+<td><p>imagenet</p></td>
+<td><p>1.78M</p></td>
+</tr>
+<tr class="row-even"><td><p>timm-mobilenetv3_large_100</p></td>
+<td><p>imagenet</p></td>
+<td><p>2.97M</p></td>
+</tr>
+<tr class="row-odd"><td><p>timm-mobilenetv3_large_minimal_100</p></td>
+<td><p>imagenet</p></td>
+<td><p>1.41M</p></td>
+</tr>
+<tr class="row-even"><td><p>timm-mobilenetv3_small_075</p></td>
+<td><p>imagenet</p></td>
+<td><p>0.57M</p></td>
+</tr>
+<tr class="row-odd"><td><p>timm-mobilenetv3_small_100</p></td>
+<td><p>imagenet</p></td>
+<td><p>0.93M</p></td>
+</tr>
+<tr class="row-even"><td><p>timm-mobilenetv3_small_minimal_100</p></td>
+<td><p>imagenet</p></td>
+<td><p>0.43M</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="dpn">
+<h2>DPN<a class="headerlink" href="#dpn" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 38%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Encoder</p></th>
+<th class="head"><p>Weights</p></th>
+<th class="head"><p>Params, M</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>dpn68</p></td>
+<td><p>imagenet</p></td>
+<td><p>11M</p></td>
+</tr>
+<tr class="row-odd"><td><p>dpn68b</p></td>
+<td><p>imagenet+5k</p></td>
+<td><p>11M</p></td>
+</tr>
+<tr class="row-even"><td><p>dpn92</p></td>
+<td><p>imagenet+5k</p></td>
+<td><p>34M</p></td>
+</tr>
+<tr class="row-odd"><td><p>dpn98</p></td>
+<td><p>imagenet</p></td>
+<td><p>58M</p></td>
+</tr>
+<tr class="row-even"><td><p>dpn107</p></td>
+<td><p>imagenet+5k</p></td>
+<td><p>84M</p></td>
+</tr>
+<tr class="row-odd"><td><p>dpn131</p></td>
+<td><p>imagenet</p></td>
+<td><p>76M</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="vgg">
+<h2>VGG<a class="headerlink" href="#vgg" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 32%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Encoder</p></th>
+<th class="head"><p>Weights</p></th>
+<th class="head"><p>Params, M</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>vgg11</p></td>
+<td><p>imagenet</p></td>
+<td><p>9M</p></td>
+</tr>
+<tr class="row-odd"><td><p>vgg11_bn</p></td>
+<td><p>imagenet</p></td>
+<td><p>9M</p></td>
+</tr>
+<tr class="row-even"><td><p>vgg13</p></td>
+<td><p>imagenet</p></td>
+<td><p>9M</p></td>
+</tr>
+<tr class="row-odd"><td><p>vgg13_bn</p></td>
+<td><p>imagenet</p></td>
+<td><p>9M</p></td>
+</tr>
+<tr class="row-even"><td><p>vgg16</p></td>
+<td><p>imagenet</p></td>
+<td><p>14M</p></td>
+</tr>
+<tr class="row-odd"><td><p>vgg16_bn</p></td>
+<td><p>imagenet</p></td>
+<td><p>14M</p></td>
+</tr>
+<tr class="row-even"><td><p>vgg19</p></td>
+<td><p>imagenet</p></td>
+<td><p>20M</p></td>
+</tr>
+<tr class="row-odd"><td><p>vgg19_bn</p></td>
+<td><p>imagenet</p></td>
+<td><p>20M</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="encoders_timm.html" class="btn btn-neutral float-right" title="🪐 Timm Encoders" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="models.html" class="btn btn-neutral float-left" title="📦 Segmentation Models" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Pavel Yakubovskiy
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

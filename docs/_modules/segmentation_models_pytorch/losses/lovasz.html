@@ -1,0 +1,439 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>segmentation_models_pytorch.losses.lovasz &mdash; Segmentation Models  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../_static/images/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/faculty.css" type="text/css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans|Roboto:400,700|Roboto+Mono:400,700&display=swap" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+  
+    <a class="heading heading-extra-margin" href="../../../index.html">
+      <div class="logo-box logo-box-large">
+        <img class="logo" src="../../../_static/logo.png"/>
+      </div>
+      
+        <span class="icon icon-home"> Segmentation Models</span>
+      
+    </a>
+  
+
+  
+    
+    
+      <div class="version">0.2.0</div>
+    
+  
+
+  
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">🛠 Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">⏳ Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../models.html">📦 Segmentation Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../encoders.html">🏔 Available Encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../encoders_timm.html">🪐 Timm Encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../losses.html">📉 Losses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../insights.html">🔧 Insights</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Segmentation Models</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+
+  
+
+  
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+  <li class="breadcrumb"><a href="../../../index.html">Segmentation Models</a> &raquo;</li>
+    
+      <li class="breadcrumb"><a href="../../index.html">Module code</a> &raquo;</li>
+    
+  <li class="breadcrumb">segmentation_models_pytorch.losses.lovasz</li>
+
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for segmentation_models_pytorch.losses.lovasz</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Lovasz-Softmax and Jaccard hinge loss in PyTorch</span>
+<span class="sd">Maxim Berman 2018 ESAT-PSI KU Leuven (MIT License)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">from</span> <span class="nn">torch.nn.modules.loss</span> <span class="kn">import</span> <span class="n">_Loss</span>
+<span class="kn">from</span> <span class="nn">.constants</span> <span class="kn">import</span> <span class="n">BINARY_MODE</span><span class="p">,</span> <span class="n">MULTICLASS_MODE</span><span class="p">,</span> <span class="n">MULTILABEL_MODE</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">ifilterfalse</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>  <span class="c1"># py3k</span>
+    <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">filterfalse</span> <span class="k">as</span> <span class="n">ifilterfalse</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;LovaszLoss&quot;</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">_lovasz_grad</span><span class="p">(</span><span class="n">gt_sorted</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Compute gradient of the Lovasz extension w.r.t sorted errors</span>
+<span class="sd">    See Alg. 1 in paper</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">gt_sorted</span><span class="p">)</span>
+    <span class="n">gts</span> <span class="o">=</span> <span class="n">gt_sorted</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">intersection</span> <span class="o">=</span> <span class="n">gts</span> <span class="o">-</span> <span class="n">gt_sorted</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">union</span> <span class="o">=</span> <span class="n">gts</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">gt_sorted</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">jaccard</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">intersection</span> <span class="o">/</span> <span class="n">union</span>
+    <span class="k">if</span> <span class="n">p</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># cover 1-pixel case</span>
+        <span class="n">jaccard</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">p</span><span class="p">]</span> <span class="o">=</span> <span class="n">jaccard</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">p</span><span class="p">]</span> <span class="o">-</span> <span class="n">jaccard</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">jaccard</span>
+
+
+<span class="k">def</span> <span class="nf">_lovasz_hinge</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">per_image</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ignore</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Binary Lovasz hinge loss</span>
+<span class="sd">        logits: [B, H, W] Logits at each pixel (between -infinity and +infinity)</span>
+<span class="sd">        labels: [B, H, W] Tensor, binary ground truth masks (0 or 1)</span>
+<span class="sd">        per_image: compute the loss per image instead of per batch</span>
+<span class="sd">        ignore: void class id</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">per_image</span><span class="p">:</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">mean</span><span class="p">(</span>
+            <span class="n">_lovasz_hinge_flat</span><span class="p">(</span><span class="o">*</span><span class="n">_flatten_binary_scores</span><span class="p">(</span><span class="n">log</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">lab</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">ignore</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">log</span><span class="p">,</span> <span class="n">lab</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">_lovasz_hinge_flat</span><span class="p">(</span><span class="o">*</span><span class="n">_flatten_binary_scores</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">ignore</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">loss</span>
+
+
+<span class="k">def</span> <span class="nf">_lovasz_hinge_flat</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Binary Lovasz hinge loss</span>
+<span class="sd">    Args:</span>
+<span class="sd">        logits: [P] Logits at each prediction (between -infinity and +infinity)</span>
+<span class="sd">        labels: [P] Tensor, binary ground truth labels (0 or 1)</span>
+<span class="sd">        ignore: label to ignore</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># only void pixels, the gradients should be 0</span>
+        <span class="k">return</span> <span class="n">logits</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="mf">0.0</span>
+    <span class="n">signs</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">labels</span><span class="o">.</span><span class="n">float</span><span class="p">()</span> <span class="o">-</span> <span class="mf">1.0</span>
+    <span class="n">errors</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">logits</span> <span class="o">*</span> <span class="n">signs</span>
+    <span class="n">errors_sorted</span><span class="p">,</span> <span class="n">perm</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">errors</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">perm</span> <span class="o">=</span> <span class="n">perm</span><span class="o">.</span><span class="n">data</span>
+    <span class="n">gt_sorted</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">perm</span><span class="p">]</span>
+    <span class="n">grad</span> <span class="o">=</span> <span class="n">_lovasz_grad</span><span class="p">(</span><span class="n">gt_sorted</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">errors_sorted</span><span class="p">),</span> <span class="n">grad</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">loss</span>
+
+
+<span class="k">def</span> <span class="nf">_flatten_binary_scores</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">ignore</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Flattens predictions in the batch (binary case)</span>
+<span class="sd">    Remove labels equal to &#39;ignore&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">scores</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ignore</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">scores</span><span class="p">,</span> <span class="n">labels</span>
+    <span class="n">valid</span> <span class="o">=</span> <span class="n">labels</span> <span class="o">!=</span> <span class="n">ignore</span>
+    <span class="n">vscores</span> <span class="o">=</span> <span class="n">scores</span><span class="p">[</span><span class="n">valid</span><span class="p">]</span>
+    <span class="n">vlabels</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">valid</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">vscores</span><span class="p">,</span> <span class="n">vlabels</span>
+
+
+<span class="c1"># --------------------------- MULTICLASS LOSSES ---------------------------</span>
+
+
+<span class="k">def</span> <span class="nf">_lovasz_softmax</span><span class="p">(</span><span class="n">probas</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="s2">&quot;present&quot;</span><span class="p">,</span> <span class="n">per_image</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ignore</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Multi-class Lovasz-Softmax loss</span>
+<span class="sd">    Args:</span>
+<span class="sd">        @param probas: [B, C, H, W] Class probabilities at each prediction (between 0 and 1).</span>
+<span class="sd">        Interpreted as binary (sigmoid) output with outputs of size [B, H, W].</span>
+<span class="sd">        @param labels: [B, H, W] Tensor, ground truth labels (between 0 and C - 1)</span>
+<span class="sd">        @param classes: &#39;all&#39; for all, &#39;present&#39; for classes present in labels, or a list of classes to average.</span>
+<span class="sd">        @param per_image: compute the loss per image instead of per batch</span>
+<span class="sd">        @param ignore: void class labels</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">per_image</span><span class="p">:</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">mean</span><span class="p">(</span>
+            <span class="n">_lovasz_softmax_flat</span><span class="p">(</span><span class="o">*</span><span class="n">_flatten_probas</span><span class="p">(</span><span class="n">prob</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">lab</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">ignore</span><span class="p">),</span> <span class="n">classes</span><span class="o">=</span><span class="n">classes</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">prob</span><span class="p">,</span> <span class="n">lab</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">probas</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">_lovasz_softmax_flat</span><span class="p">(</span><span class="o">*</span><span class="n">_flatten_probas</span><span class="p">(</span><span class="n">probas</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">ignore</span><span class="p">),</span> <span class="n">classes</span><span class="o">=</span><span class="n">classes</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">loss</span>
+
+
+<span class="k">def</span> <span class="nf">_lovasz_softmax_flat</span><span class="p">(</span><span class="n">probas</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="s2">&quot;present&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Multi-class Lovasz-Softmax loss</span>
+<span class="sd">    Args:</span>
+<span class="sd">        @param probas: [P, C] Class probabilities at each prediction (between 0 and 1)</span>
+<span class="sd">        @param labels: [P] Tensor, ground truth labels (between 0 and C - 1)</span>
+<span class="sd">        @param classes: &#39;all&#39; for all, &#39;present&#39; for classes present in labels, or a list of classes to average.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">probas</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># only void pixels, the gradients should be 0</span>
+        <span class="k">return</span> <span class="n">probas</span> <span class="o">*</span> <span class="mf">0.0</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">probas</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">losses</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">class_to_sum</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">C</span><span class="p">))</span> <span class="k">if</span> <span class="n">classes</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="s2">&quot;present&quot;</span><span class="p">]</span> <span class="k">else</span> <span class="n">classes</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">class_to_sum</span><span class="p">:</span>
+        <span class="n">fg</span> <span class="o">=</span> <span class="p">(</span><span class="n">labels</span> <span class="o">==</span> <span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">type_as</span><span class="p">(</span><span class="n">probas</span><span class="p">)</span>  <span class="c1"># foreground for class c</span>
+        <span class="k">if</span> <span class="n">classes</span> <span class="o">==</span> <span class="s2">&quot;present&quot;</span> <span class="ow">and</span> <span class="n">fg</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">C</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">classes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Sigmoid output possible only with 1 class&quot;</span><span class="p">)</span>
+            <span class="n">class_pred</span> <span class="o">=</span> <span class="n">probas</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">class_pred</span> <span class="o">=</span> <span class="n">probas</span><span class="p">[:,</span> <span class="n">c</span><span class="p">]</span>
+        <span class="n">errors</span> <span class="o">=</span> <span class="p">(</span><span class="n">fg</span> <span class="o">-</span> <span class="n">class_pred</span><span class="p">)</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span>
+        <span class="n">errors_sorted</span><span class="p">,</span> <span class="n">perm</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">errors</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">perm</span> <span class="o">=</span> <span class="n">perm</span><span class="o">.</span><span class="n">data</span>
+        <span class="n">fg_sorted</span> <span class="o">=</span> <span class="n">fg</span><span class="p">[</span><span class="n">perm</span><span class="p">]</span>
+        <span class="n">losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">errors_sorted</span><span class="p">,</span> <span class="n">_lovasz_grad</span><span class="p">(</span><span class="n">fg_sorted</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">mean</span><span class="p">(</span><span class="n">losses</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_flatten_probas</span><span class="p">(</span><span class="n">probas</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">ignore</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Flattens predictions in the batch</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">probas</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="c1"># assumes output of a sigmoid layer</span>
+        <span class="n">B</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">W</span> <span class="o">=</span> <span class="n">probas</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+        <span class="n">probas</span> <span class="o">=</span> <span class="n">probas</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span>
+
+    <span class="n">C</span> <span class="o">=</span> <span class="n">probas</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">probas</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">movedim</span><span class="p">(</span><span class="n">probas</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># [B, C, Di, Dj, ...] -&gt; [B, Di, Dj, ..., C]</span>
+    <span class="n">probas</span> <span class="o">=</span> <span class="n">probas</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span>  <span class="c1"># [P, C]</span>
+
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ignore</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">probas</span><span class="p">,</span> <span class="n">labels</span>
+    <span class="n">valid</span> <span class="o">=</span> <span class="n">labels</span> <span class="o">!=</span> <span class="n">ignore</span>
+    <span class="n">vprobas</span> <span class="o">=</span> <span class="n">probas</span><span class="p">[</span><span class="n">valid</span><span class="p">]</span>
+    <span class="n">vlabels</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">valid</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">vprobas</span><span class="p">,</span> <span class="n">vlabels</span>
+
+
+<span class="c1"># --------------------------- HELPER FUNCTIONS ---------------------------</span>
+<span class="k">def</span> <span class="nf">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">!=</span> <span class="n">x</span>
+
+
+<span class="k">def</span> <span class="nf">mean</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">ignore_nan</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">empty</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Nanmean compatible with generators.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ignore_nan</span><span class="p">:</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">ifilterfalse</span><span class="p">(</span><span class="n">isnan</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">acc</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">empty</span> <span class="o">==</span> <span class="s2">&quot;raise&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty mean&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">empty</span>
+    <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="n">acc</span> <span class="o">+=</span> <span class="n">v</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">acc</span>
+    <span class="k">return</span> <span class="n">acc</span> <span class="o">/</span> <span class="n">n</span>
+
+
+<div class="viewcode-block" id="LovaszLoss"><a class="viewcode-back" href="../../../losses.html#segmentation_models_pytorch.losses.LovaszLoss">[docs]</a><span class="k">class</span> <span class="nc">LovaszLoss</span><span class="p">(</span><span class="n">_Loss</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">per_image</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">ignore_index</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">from_logits</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Implementation of Lovasz loss for image segmentation task.</span>
+<span class="sd">        It supports binary, multiclass and multilabel cases</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            mode: Loss mode &#39;binary&#39;, &#39;multiclass&#39; or &#39;multilabel&#39;</span>
+<span class="sd">            ignore_index: Label that indicates ignored pixels (does not contribute to loss)</span>
+<span class="sd">            per_image: If True loss computed per each image and then averaged, else computed per whole batch</span>
+<span class="sd">        </span>
+<span class="sd">        Shape</span>
+<span class="sd">             - **y_pred** - torch.Tensor of shape (N, C, H, W)</span>
+<span class="sd">             - **y_true** - torch.Tensor of shape (N, H, W) or (N, C, H, W)</span>
+
+<span class="sd">        Reference</span>
+<span class="sd">            https://github.com/BloodAxe/pytorch-toolbelt</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">mode</span> <span class="ow">in</span> <span class="p">{</span><span class="n">BINARY_MODE</span><span class="p">,</span> <span class="n">MULTILABEL_MODE</span><span class="p">,</span> <span class="n">MULTICLASS_MODE</span><span class="p">}</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">mode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ignore_index</span> <span class="o">=</span> <span class="n">ignore_index</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">per_image</span> <span class="o">=</span> <span class="n">per_image</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">y_true</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="ow">in</span> <span class="p">{</span><span class="n">BINARY_MODE</span><span class="p">,</span> <span class="n">MULTILABEL_MODE</span><span class="p">}:</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">_lovasz_hinge</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">per_image</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">per_image</span><span class="p">,</span> <span class="n">ignore</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ignore_index</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="n">MULTICLASS_MODE</span><span class="p">:</span>
+            <span class="n">y_pred</span> <span class="o">=</span> <span class="n">y_pred</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">_lovasz_softmax</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">per_image</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">per_image</span><span class="p">,</span> <span class="n">ignore</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ignore_index</span><span class="p">)</span>    
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Wrong mode </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mode</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">loss</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Pavel Yakubovskiy
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

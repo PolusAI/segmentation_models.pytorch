@@ -1,0 +1,502 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>📉 Losses &mdash; Segmentation Models  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/images/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/faculty.css" type="text/css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans|Roboto:400,700|Roboto+Mono:400,700&display=swap" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="🔧 Insights" href="insights.html" />
+    <link rel="prev" title="🪐 Timm Encoders" href="encoders_timm.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+  
+    <a class="heading heading-extra-margin" href="index.html">
+      <div class="logo-box logo-box-large">
+        <img class="logo" src="_static/logo.png"/>
+      </div>
+      
+        <span class="icon icon-home"> Segmentation Models</span>
+      
+    </a>
+  
+
+  
+    
+    
+      <div class="version">0.2.0</div>
+    
+  
+
+  
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">🛠 Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">⏳ Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">📦 Segmentation Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="encoders.html">🏔 Available Encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="encoders_timm.html">🪐 Timm Encoders</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">📉 Losses</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-segmentation_models_pytorch.losses.constants">Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#jaccardloss">JaccardLoss</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#diceloss">DiceLoss</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tverskyloss">TverskyLoss</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#focalloss">FocalLoss</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lovaszloss">LovaszLoss</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#softbcewithlogitsloss">SoftBCEWithLogitsLoss</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#softcrossentropyloss">SoftCrossEntropyLoss</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mccloss">MCCLoss</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="insights.html">🔧 Insights</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Segmentation Models</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+
+  
+
+  
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+  <li class="breadcrumb"><a href="index.html">Segmentation Models</a> &raquo;</li>
+    
+  <li class="breadcrumb">📉 Losses</li>
+
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/losses.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="losses">
+<h1>📉 Losses<a class="headerlink" href="#losses" title="Permalink to this headline">¶</a></h1>
+<p>Collection of popular semantic segmentation losses. Adapted from
+an awesome repo with pytorch utils <a class="reference external" href="https://github.com/BloodAxe/pytorch-toolbelt">https://github.com/BloodAxe/pytorch-toolbelt</a></p>
+<section id="module-segmentation_models_pytorch.losses.constants">
+<span id="constants"></span><h2>Constants<a class="headerlink" href="#module-segmentation_models_pytorch.losses.constants" title="Permalink to this headline">¶</a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="segmentation_models_pytorch.losses.constants.BINARY_MODE">
+<span class="sig-prename descclassname"><span class="pre">segmentation_models_pytorch.losses.constants.</span></span><span class="sig-name descname"><span class="pre">BINARY_MODE</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">=</span> <span class="pre">'binary'</span></em><a class="headerlink" href="#segmentation_models_pytorch.losses.constants.BINARY_MODE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loss binary mode suppose you are solving binary segmentation task.
+That mean yor have only one class which pixels are labled as <strong>1</strong>,
+the rest pixels are background and labeled as <strong>0</strong>.
+Target mask shape - (N, H, W), model output mask shape (N, 1, H, W).</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="segmentation_models_pytorch.losses.constants.MULTICLASS_MODE">
+<span class="sig-prename descclassname"><span class="pre">segmentation_models_pytorch.losses.constants.</span></span><span class="sig-name descname"><span class="pre">MULTICLASS_MODE</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">=</span> <span class="pre">'multiclass'</span></em><a class="headerlink" href="#segmentation_models_pytorch.losses.constants.MULTICLASS_MODE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loss multiclass mode suppose you are solving multi-<strong>class</strong> segmentation task.
+That mean you have <em>C = 1..N</em> classes which have unique label values,
+classes are mutually exclusive and all pixels are labeled with theese values.
+Target mask shape - (N, H, W), model output mask shape (N, C, H, W).</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="segmentation_models_pytorch.losses.constants.MULTILABEL_MODE">
+<span class="sig-prename descclassname"><span class="pre">segmentation_models_pytorch.losses.constants.</span></span><span class="sig-name descname"><span class="pre">MULTILABEL_MODE</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">=</span> <span class="pre">'multilabel'</span></em><a class="headerlink" href="#segmentation_models_pytorch.losses.constants.MULTILABEL_MODE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loss multilabel mode suppose you are solving multi-<strong>label</strong> segmentation task.
+That mean you have <em>C = 1..N</em> classes which pixels are labeled as <strong>1</strong>,
+classes are not mutually exclusive and each class have its own <em>channel</em>,
+pixels in each channel which are not belong to class labeled as <strong>0</strong>.
+Target mask shape - (N, C, H, W), model output mask shape (N, C, H, W).</p>
+</dd></dl>
+
+</section>
+<section id="jaccardloss">
+<h2>JaccardLoss<a class="headerlink" href="#jaccardloss" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="segmentation_models_pytorch.losses.JaccardLoss">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">segmentation_models_pytorch.losses.</span></span><span class="sig-name descname"><span class="pre">JaccardLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_loss</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_logits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-07</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/segmentation_models_pytorch/losses/jaccard.html#JaccardLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#segmentation_models_pytorch.losses.JaccardLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implementation of Jaccard loss for image segmentation task.
+It supports binary, multiclass and multilabel cases</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mode</strong> – Loss mode ‘binary’, ‘multiclass’ or ‘multilabel’</p></li>
+<li><p><strong>classes</strong> – List of classes that contribute in loss computation. By default, all channels are included.</p></li>
+<li><p><strong>log_loss</strong> – If True, loss computed as <cite>- log(jaccard_coeff)</cite>, otherwise <cite>1 - jaccard_coeff</cite></p></li>
+<li><p><strong>from_logits</strong> – If True, assumes input is raw logits</p></li>
+<li><p><strong>smooth</strong> – Smoothness constant for dice coefficient</p></li>
+<li><p><strong>ignore_index</strong> – Label that indicates ignored pixels (does not contribute to loss)</p></li>
+<li><p><strong>eps</strong> – A small epsilon for numerical stability to avoid zero division error
+(denominator will be always greater or equal to eps)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Shape</dt><dd><ul class="simple">
+<li><p><strong>y_pred</strong> - torch.Tensor of shape (N, C, H, W)</p></li>
+<li><p><strong>y_true</strong> - torch.Tensor of shape (N, H, W) or (N, C, H, W)</p></li>
+</ul>
+</dd>
+<dt>Reference</dt><dd><p><a class="reference external" href="https://github.com/BloodAxe/pytorch-toolbelt">https://github.com/BloodAxe/pytorch-toolbelt</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="diceloss">
+<h2>DiceLoss<a class="headerlink" href="#diceloss" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="segmentation_models_pytorch.losses.DiceLoss">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">segmentation_models_pytorch.losses.</span></span><span class="sig-name descname"><span class="pre">DiceLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_loss</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_logits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-07</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/segmentation_models_pytorch/losses/dice.html#DiceLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#segmentation_models_pytorch.losses.DiceLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implementation of Dice loss for image segmentation task.
+It supports binary, multiclass and multilabel cases</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mode</strong> – Loss mode ‘binary’, ‘multiclass’ or ‘multilabel’</p></li>
+<li><p><strong>classes</strong> – List of classes that contribute in loss computation. By default, all channels are included.</p></li>
+<li><p><strong>log_loss</strong> – If True, loss computed as <cite>- log(dice_coeff)</cite>, otherwise <cite>1 - dice_coeff</cite></p></li>
+<li><p><strong>from_logits</strong> – If True, assumes input is raw logits</p></li>
+<li><p><strong>smooth</strong> – Smoothness constant for dice coefficient (a)</p></li>
+<li><p><strong>ignore_index</strong> – Label that indicates ignored pixels (does not contribute to loss)</p></li>
+<li><p><strong>eps</strong> – A small epsilon for numerical stability to avoid zero division error
+(denominator will be always greater or equal to eps)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Shape</dt><dd><ul class="simple">
+<li><p><strong>y_pred</strong> - torch.Tensor of shape (N, C, H, W)</p></li>
+<li><p><strong>y_true</strong> - torch.Tensor of shape (N, H, W) or (N, C, H, W)</p></li>
+</ul>
+</dd>
+<dt>Reference</dt><dd><p><a class="reference external" href="https://github.com/BloodAxe/pytorch-toolbelt">https://github.com/BloodAxe/pytorch-toolbelt</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="tverskyloss">
+<h2>TverskyLoss<a class="headerlink" href="#tverskyloss" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="segmentation_models_pytorch.losses.TverskyLoss">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">segmentation_models_pytorch.losses.</span></span><span class="sig-name descname"><span class="pre">TverskyLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_loss</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_logits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-07</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/segmentation_models_pytorch/losses/tversky.html#TverskyLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#segmentation_models_pytorch.losses.TverskyLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implementation of Tversky loss for image segmentation task.
+Where TP and FP is weighted by alpha and beta params.
+With alpha == beta == 0.5, this loss becomes equal DiceLoss.
+It supports binary, multiclass and multilabel cases</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mode</strong> – Metric mode {‘binary’, ‘multiclass’, ‘multilabel’}</p></li>
+<li><p><strong>classes</strong> – Optional list of classes that contribute in loss computation;</p></li>
+<li><p><strong>default</strong> (<em>By</em>) – </p></li>
+<li><p><strong>included.</strong> (<em>all channels are</em>) – </p></li>
+<li><p><strong>log_loss</strong> – If True, loss computed as <code class="docutils literal notranslate"><span class="pre">-log(tversky)</span></code> otherwise <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">-</span> <span class="pre">tversky</span></code></p></li>
+<li><p><strong>from_logits</strong> – If True assumes input is raw logits</p></li>
+<li><p><strong>smooth</strong> – </p></li>
+<li><p><strong>ignore_index</strong> – Label that indicates ignored pixels (does not contribute to loss)</p></li>
+<li><p><strong>eps</strong> – Small epsilon for numerical stability</p></li>
+<li><p><strong>alpha</strong> – Weight constant that penalize model for FPs (False Positives)</p></li>
+<li><p><strong>beta</strong> – Weight constant that penalize model for FNs (False Positives)</p></li>
+<li><p><strong>gamma</strong> – Constant that squares the error function. Defaults to <code class="docutils literal notranslate"><span class="pre">1.0</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>torch.Tensor</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>loss</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="focalloss">
+<h2>FocalLoss<a class="headerlink" href="#focalloss" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="segmentation_models_pytorch.losses.FocalLoss">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">segmentation_models_pytorch.losses.</span></span><span class="sig-name descname"><span class="pre">FocalLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalized</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduced_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/segmentation_models_pytorch/losses/focal.html#FocalLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#segmentation_models_pytorch.losses.FocalLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute Focal loss</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mode</strong> – Loss mode ‘binary’, ‘multiclass’ or ‘multilabel’</p></li>
+<li><p><strong>alpha</strong> – Prior probability of having positive value in target.</p></li>
+<li><p><strong>gamma</strong> – Power factor for dampening weight (focal strength).</p></li>
+<li><p><strong>ignore_index</strong> – If not None, targets may contain values to be ignored.
+Target values equal to ignore_index will be ignored from loss computation.</p></li>
+<li><p><strong>normalized</strong> – Compute normalized focal loss (<a class="reference external" href="https://arxiv.org/pdf/1909.07829.pdf">https://arxiv.org/pdf/1909.07829.pdf</a>).</p></li>
+<li><p><strong>reduced_threshold</strong> – Switch to reduced focal loss. Note, when using this mode you should use <cite>reduction=”sum”</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Shape</dt><dd><ul class="simple">
+<li><p><strong>y_pred</strong> - torch.Tensor of shape (N, C, H, W)</p></li>
+<li><p><strong>y_true</strong> - torch.Tensor of shape (N, H, W) or (N, C, H, W)</p></li>
+</ul>
+</dd>
+<dt>Reference</dt><dd><p><a class="reference external" href="https://github.com/BloodAxe/pytorch-toolbelt">https://github.com/BloodAxe/pytorch-toolbelt</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="lovaszloss">
+<h2>LovaszLoss<a class="headerlink" href="#lovaszloss" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="segmentation_models_pytorch.losses.LovaszLoss">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">segmentation_models_pytorch.losses.</span></span><span class="sig-name descname"><span class="pre">LovaszLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per_image</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_logits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/segmentation_models_pytorch/losses/lovasz.html#LovaszLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#segmentation_models_pytorch.losses.LovaszLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implementation of Lovasz loss for image segmentation task.
+It supports binary, multiclass and multilabel cases</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mode</strong> – Loss mode ‘binary’, ‘multiclass’ or ‘multilabel’</p></li>
+<li><p><strong>ignore_index</strong> – Label that indicates ignored pixels (does not contribute to loss)</p></li>
+<li><p><strong>per_image</strong> – If True loss computed per each image and then averaged, else computed per whole batch</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Shape</dt><dd><ul class="simple">
+<li><p><strong>y_pred</strong> - torch.Tensor of shape (N, C, H, W)</p></li>
+<li><p><strong>y_true</strong> - torch.Tensor of shape (N, H, W) or (N, C, H, W)</p></li>
+</ul>
+</dd>
+<dt>Reference</dt><dd><p><a class="reference external" href="https://github.com/BloodAxe/pytorch-toolbelt">https://github.com/BloodAxe/pytorch-toolbelt</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="softbcewithlogitsloss">
+<h2>SoftBCEWithLogitsLoss<a class="headerlink" href="#softbcewithlogitsloss" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="segmentation_models_pytorch.losses.SoftBCEWithLogitsLoss">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">segmentation_models_pytorch.losses.</span></span><span class="sig-name descname"><span class="pre">SoftBCEWithLogitsLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/segmentation_models_pytorch/losses/soft_bce.html#SoftBCEWithLogitsLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#segmentation_models_pytorch.losses.SoftBCEWithLogitsLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drop-in replacement for torch.nn.BCEWithLogitsLoss with few additions: ignore_index and label_smoothing</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ignore_index</strong> – Specifies a target value that is ignored and does not contribute to the input gradient.</p></li>
+<li><p><strong>smooth_factor</strong> – Factor to smooth target (e.g. if smooth_factor=0.1 then [1, 0, 1] -&gt; [0.9, 0.1, 0.9])</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Shape</dt><dd><ul class="simple">
+<li><p><strong>y_pred</strong> - torch.Tensor of shape NxCxHxW</p></li>
+<li><p><strong>y_true</strong> - torch.Tensor of shape NxHxW or Nx1xHxW</p></li>
+</ul>
+</dd>
+<dt>Reference</dt><dd><p><a class="reference external" href="https://github.com/BloodAxe/pytorch-toolbelt">https://github.com/BloodAxe/pytorch-toolbelt</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="softcrossentropyloss">
+<h2>SoftCrossEntropyLoss<a class="headerlink" href="#softcrossentropyloss" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="segmentation_models_pytorch.losses.SoftCrossEntropyLoss">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">segmentation_models_pytorch.losses.</span></span><span class="sig-name descname"><span class="pre">SoftCrossEntropyLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reduction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/segmentation_models_pytorch/losses/soft_ce.html#SoftCrossEntropyLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#segmentation_models_pytorch.losses.SoftCrossEntropyLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drop-in replacement for torch.nn.CrossEntropyLoss with label_smoothing</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>smooth_factor</strong> – Factor to smooth target (e.g. if smooth_factor=0.1 then [1, 0, 0] -&gt; [0.9, 0.05, 0.05])</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Shape</dt><dd><ul class="simple">
+<li><p><strong>y_pred</strong> - torch.Tensor of shape (N, C, H, W)</p></li>
+<li><p><strong>y_true</strong> - torch.Tensor of shape (N, H, W)</p></li>
+</ul>
+</dd>
+<dt>Reference</dt><dd><p><a class="reference external" href="https://github.com/BloodAxe/pytorch-toolbelt">https://github.com/BloodAxe/pytorch-toolbelt</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="mccloss">
+<h2>MCCLoss<a class="headerlink" href="#mccloss" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="segmentation_models_pytorch.losses.MCCLoss">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">segmentation_models_pytorch.losses.</span></span><span class="sig-name descname"><span class="pre">MCCLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/segmentation_models_pytorch/losses/mcc.html#MCCLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#segmentation_models_pytorch.losses.MCCLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute Mathews Correlation Coefficient Loss
+:param mode: Loss mode ‘binary’
+:param eps: Small epsilon for numerical stability</p>
+<dl class="simple">
+<dt>Shape</dt><dd><ul class="simple">
+<li><p><strong>y_pred</strong> - torch.Tensor of shape (N, C, H, W)</p></li>
+<li><p><strong>y_true</strong> - torch.Tensor of shape (N, H, W) or (N, C, H, W)</p></li>
+</ul>
+</dd>
+</dl>
+<p>Return:
+loss: torch.Tensor</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="insights.html" class="btn btn-neutral float-right" title="🔧 Insights" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="encoders_timm.html" class="btn btn-neutral float-left" title="🪐 Timm Encoders" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Pavel Yakubovskiy
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

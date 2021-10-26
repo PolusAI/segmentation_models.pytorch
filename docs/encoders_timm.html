@@ -1,0 +1,1656 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>🪐 Timm Encoders &mdash; Segmentation Models  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/images/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/faculty.css" type="text/css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans|Roboto:400,700|Roboto+Mono:400,700&display=swap" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="📉 Losses" href="losses.html" />
+    <link rel="prev" title="🏔 Available Encoders" href="encoders.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+  
+    <a class="heading heading-extra-margin" href="index.html">
+      <div class="logo-box logo-box-large">
+        <img class="logo" src="_static/logo.png"/>
+      </div>
+      
+        <span class="icon icon-home"> Segmentation Models</span>
+      
+    </a>
+  
+
+  
+    
+    
+      <div class="version">0.2.0</div>
+    
+  
+
+  
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">🛠 Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">⏳ Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">📦 Segmentation Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="encoders.html">🏔 Available Encoders</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">🪐 Timm Encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="losses.html">📉 Losses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="insights.html">🔧 Insights</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Segmentation Models</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+
+  
+
+  
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+  <li class="breadcrumb"><a href="index.html">Segmentation Models</a> &raquo;</li>
+    
+  <li class="breadcrumb">🪐 Timm Encoders</li>
+
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/encoders_timm.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="timm-encoders">
+<h1>🪐 Timm Encoders<a class="headerlink" href="#timm-encoders" title="Permalink to this headline">¶</a></h1>
+<p>Pytorch Image Models (a.k.a. timm) has a lot of pretrained models and interface which allows using these models as encoders in smp,
+however, not all models are supported</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>transformer models do not have <code class="docutils literal notranslate"><span class="pre">features_only</span></code> functionality implemented</p></li>
+<li><p>some models do not have appropriate strides</p></li>
+</ul>
+</div></blockquote>
+<p>Below is a table of suitable encoders (for DeepLabV3, DeepLabV3+, and PAN dilation support is needed also)</p>
+<p>Total number of encoders: 467</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To use following encoders you have to add prefix <code class="docutils literal notranslate"><span class="pre">tu-</span></code>, e.g. <code class="docutils literal notranslate"><span class="pre">tu-adv_inception_v3</span></code></p>
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 65%" />
+<col style="width: 35%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Encoder name</p></th>
+<th class="head"><p>Support dilation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>adv_inception_v3</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>bat_resnext26ts</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>botnet26t_256</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>botnet50ts_256</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>cspresnet50</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>cspresnet50d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>cspresnet50w</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>cspresnext50</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>densenet121</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>densenet121d</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>densenet161</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>densenet169</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>densenet201</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>densenet264</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>densenet264d_iabn</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>densenetblur121d</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>dla102</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>dla102x</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>dla102x2</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>dla169</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>dla34</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>dla46_c</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>dla46x_c</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>dla60</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>dla60_res2net</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>dla60_res2next</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>dla60x</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>dla60x_c</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>dm_nfnet_f0</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>dm_nfnet_f1</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>dm_nfnet_f2</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>dm_nfnet_f3</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>dm_nfnet_f4</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>dm_nfnet_f5</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>dm_nfnet_f6</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>dpn107</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>dpn131</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>dpn68</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>dpn68b</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>dpn92</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>dpn98</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>eca_botnext26ts_256</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>eca_efficientnet_b0</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>eca_halonext26ts</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>eca_lambda_resnext26ts</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>eca_nfnet_l0</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>eca_nfnet_l1</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>eca_nfnet_l2</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>eca_nfnet_l3</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>eca_swinnext26ts_256</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>eca_vovnet39b</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>ecaresnet101d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>ecaresnet101d_pruned</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>ecaresnet200d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>ecaresnet269d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>ecaresnet26t</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>ecaresnet50d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>ecaresnet50d_pruned</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>ecaresnet50t</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>ecaresnetlight</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>ecaresnext26t_32x4d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>ecaresnext50t_32x4d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>efficientnet_b0</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>efficientnet_b1</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>efficientnet_b1_pruned</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>efficientnet_b2</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>efficientnet_b2_pruned</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>efficientnet_b2a</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>efficientnet_b3</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>efficientnet_b3_pruned</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>efficientnet_b3a</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>efficientnet_b4</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>efficientnet_b5</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>efficientnet_b6</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>efficientnet_b7</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>efficientnet_b8</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>efficientnet_cc_b0_4e</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>efficientnet_cc_b0_8e</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>efficientnet_cc_b1_8e</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>efficientnet_el</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>efficientnet_el_pruned</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>efficientnet_em</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>efficientnet_es</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>efficientnet_es_pruned</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>efficientnet_l2</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>efficientnet_lite0</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>efficientnet_lite1</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>efficientnet_lite2</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>efficientnet_lite3</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>efficientnet_lite4</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>efficientnetv2_l</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>efficientnetv2_m</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>efficientnetv2_rw_m</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>efficientnetv2_rw_s</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>efficientnetv2_s</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>ens_adv_inception_resnet_v2</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>ese_vovnet19b_dw</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>ese_vovnet19b_slim</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>ese_vovnet19b_slim_dw</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>ese_vovnet39b</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>ese_vovnet39b_evos</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>ese_vovnet57b</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>ese_vovnet99b</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>ese_vovnet99b_iabn</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>fbnetc_100</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>fbnetv3_b</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>fbnetv3_d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>fbnetv3_g</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>gc_efficientnet_b0</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>gcresnet50t</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>gcresnext26ts</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>geresnet50t</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>gernet_l</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>gernet_m</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>gernet_s</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>ghostnet_050</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>ghostnet_100</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>ghostnet_130</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>gluon_inception_v3</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>gluon_resnet101_v1b</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>gluon_resnet101_v1c</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>gluon_resnet101_v1d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>gluon_resnet101_v1s</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>gluon_resnet152_v1b</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>gluon_resnet152_v1c</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>gluon_resnet152_v1d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>gluon_resnet152_v1s</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>gluon_resnet18_v1b</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>gluon_resnet34_v1b</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>gluon_resnet50_v1b</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>gluon_resnet50_v1c</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>gluon_resnet50_v1d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>gluon_resnet50_v1s</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>gluon_resnext101_32x4d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>gluon_resnext101_64x4d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>gluon_resnext50_32x4d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>gluon_senet154</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>gluon_seresnext101_32x4d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>gluon_seresnext101_64x4d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>gluon_seresnext50_32x4d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>gluon_xception65</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>halonet26t</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>halonet50ts</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>halonet_h1</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>halonet_h1_c4c5</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>hardcorenas_a</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>hardcorenas_b</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>hardcorenas_c</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>hardcorenas_d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>hardcorenas_e</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>hardcorenas_f</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>hrnet_w18</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>hrnet_w18_small</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>hrnet_w18_small_v2</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>hrnet_w30</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>hrnet_w32</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>hrnet_w40</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>hrnet_w44</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>hrnet_w48</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>hrnet_w64</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>ig_resnext101_32x16d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>ig_resnext101_32x32d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>ig_resnext101_32x48d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>ig_resnext101_32x8d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>inception_resnet_v2</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>inception_v3</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>inception_v4</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>lambda_resnet26t</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>lambda_resnet50t</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>legacy_senet154</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>legacy_seresnet101</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>legacy_seresnet152</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>legacy_seresnet18</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>legacy_seresnet34</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>legacy_seresnet50</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>legacy_seresnext101_32x4d</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>legacy_seresnext26_32x4d</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>legacy_seresnext50_32x4d</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>mixnet_l</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>mixnet_m</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>mixnet_s</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>mixnet_xl</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>mixnet_xxl</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>mnasnet_050</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>mnasnet_075</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>mnasnet_100</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>mnasnet_140</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>mnasnet_a1</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>mnasnet_b1</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>mnasnet_small</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>mobilenetv2_100</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>mobilenetv2_110d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>mobilenetv2_120d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>mobilenetv2_140</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>mobilenetv3_large_075</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>mobilenetv3_large_100</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>mobilenetv3_large_100_miil</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>mobilenetv3_large_100_miil_in21k</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>mobilenetv3_rw</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>mobilenetv3_small_075</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>mobilenetv3_small_100</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>nasnetalarge</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>nf_ecaresnet101</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>nf_ecaresnet26</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>nf_ecaresnet50</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>nf_regnet_b0</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>nf_regnet_b1</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>nf_regnet_b2</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>nf_regnet_b3</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>nf_regnet_b4</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>nf_regnet_b5</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>nf_resnet101</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>nf_resnet26</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>nf_resnet50</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>nf_seresnet101</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>nf_seresnet26</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>nf_seresnet50</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>nfnet_f0</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>nfnet_f0s</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>nfnet_f1</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>nfnet_f1s</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>nfnet_f2</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>nfnet_f2s</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>nfnet_f3</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>nfnet_f3s</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>nfnet_f4</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>nfnet_f4s</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>nfnet_f5</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>nfnet_f5s</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>nfnet_f6</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>nfnet_f6s</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>nfnet_f7</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>nfnet_f7s</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>nfnet_l0</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>pnasnet5large</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>rednet26t</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>rednet50ts</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>regnetx_002</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>regnetx_004</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>regnetx_006</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>regnetx_008</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>regnetx_016</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>regnetx_032</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>regnetx_040</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>regnetx_064</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>regnetx_080</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>regnetx_120</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>regnetx_160</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>regnetx_320</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>regnety_002</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>regnety_004</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>regnety_006</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>regnety_008</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>regnety_016</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>regnety_032</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>regnety_040</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>regnety_064</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>regnety_080</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>regnety_120</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>regnety_160</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>regnety_320</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>repvgg_a2</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>repvgg_b0</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>repvgg_b1</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>repvgg_b1g4</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>repvgg_b2</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>repvgg_b2g4</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>repvgg_b3</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>repvgg_b3g4</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>res2net101_26w_4s</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>res2net50_14w_8s</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>res2net50_26w_4s</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>res2net50_26w_6s</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>res2net50_26w_8s</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>res2net50_48w_2s</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>res2next50</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>resnest101e</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnest14d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>resnest200e</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnest269e</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>resnest26d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnest50d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>resnest50d_1s4x24d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnest50d_4s2x40d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>resnet101</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnet101d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>resnet152</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnet152d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>resnet18</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnet18d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>resnet200</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnet200d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>resnet26</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnet26d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>resnet26t</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnet34</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>resnet34d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnet50</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>resnet50d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnet50t</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>resnet51q</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnet61q</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>resnetblur18</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnetblur50</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>resnetrs101</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnetrs152</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>resnetrs200</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnetrs270</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>resnetrs350</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnetrs420</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>resnetrs50</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnetv2_101</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>resnetv2_101d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnetv2_101x1_bitm</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>resnetv2_101x1_bitm_in21k</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnetv2_101x3_bitm</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>resnetv2_101x3_bitm_in21k</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnetv2_152</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>resnetv2_152d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnetv2_152x2_bit_teacher</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>resnetv2_152x2_bit_teacher_384</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnetv2_152x2_bitm</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>resnetv2_152x2_bitm_in21k</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnetv2_152x4_bitm</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>resnetv2_152x4_bitm_in21k</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnetv2_50</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>resnetv2_50d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnetv2_50t</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>resnetv2_50x1_bit_distilled</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnetv2_50x1_bitm</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>resnetv2_50x1_bitm_in21k</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnetv2_50x3_bitm</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>resnetv2_50x3_bitm_in21k</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnext101_32x4d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>resnext101_32x8d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnext101_64x4d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>resnext50_32x4d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnext50d_32x4d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>rexnet_100</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>rexnet_130</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>rexnet_150</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>rexnet_200</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>rexnetr_100</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>rexnetr_130</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>rexnetr_150</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>rexnetr_200</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>selecsls42</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>selecsls42b</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>selecsls60</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>selecsls60b</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>selecsls84</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>semnasnet_050</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>semnasnet_075</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>semnasnet_100</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>semnasnet_140</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>senet154</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>seresnet101</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>seresnet152</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>seresnet152d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>seresnet18</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>seresnet200d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>seresnet269d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>seresnet34</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>seresnet50</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>seresnet50t</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>seresnext101_32x4d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>seresnext101_32x8d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>seresnext26d_32x4d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>seresnext26t_32x4d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>seresnext26tn_32x4d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>seresnext50_32x4d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>skresnet18</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>skresnet34</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>skresnet50</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>skresnet50d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>skresnext50_32x4d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>spnasnet_100</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>ssl_resnet18</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>ssl_resnet50</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>ssl_resnext101_32x16d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>ssl_resnext101_32x4d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>ssl_resnext101_32x8d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>ssl_resnext50_32x4d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>swinnet26t_256</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>swinnet50ts_256</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>swsl_resnet18</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>swsl_resnet50</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>swsl_resnext101_32x16d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>swsl_resnext101_32x4d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>swsl_resnext101_32x8d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>swsl_resnext50_32x4d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tf_efficientnet_b0</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>tf_efficientnet_b0_ap</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tf_efficientnet_b0_ns</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>tf_efficientnet_b1</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tf_efficientnet_b1_ap</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>tf_efficientnet_b1_ns</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tf_efficientnet_b2</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>tf_efficientnet_b2_ap</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tf_efficientnet_b2_ns</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>tf_efficientnet_b3</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tf_efficientnet_b3_ap</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>tf_efficientnet_b3_ns</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tf_efficientnet_b4</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>tf_efficientnet_b4_ap</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tf_efficientnet_b4_ns</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>tf_efficientnet_b5</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tf_efficientnet_b5_ap</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>tf_efficientnet_b5_ns</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tf_efficientnet_b6</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>tf_efficientnet_b6_ap</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tf_efficientnet_b6_ns</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>tf_efficientnet_b7</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tf_efficientnet_b7_ap</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>tf_efficientnet_b7_ns</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tf_efficientnet_b8</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>tf_efficientnet_b8_ap</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tf_efficientnet_cc_b0_4e</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>tf_efficientnet_cc_b0_8e</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tf_efficientnet_cc_b1_8e</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>tf_efficientnet_el</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tf_efficientnet_em</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>tf_efficientnet_es</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tf_efficientnet_l2_ns</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>tf_efficientnet_l2_ns_475</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tf_efficientnet_lite0</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>tf_efficientnet_lite1</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tf_efficientnet_lite2</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>tf_efficientnet_lite3</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tf_efficientnet_lite4</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>tf_efficientnetv2_b0</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tf_efficientnetv2_b1</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>tf_efficientnetv2_b2</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tf_efficientnetv2_b3</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>tf_efficientnetv2_l</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tf_efficientnetv2_l_in21ft1k</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>tf_efficientnetv2_l_in21k</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tf_efficientnetv2_m</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>tf_efficientnetv2_m_in21ft1k</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tf_efficientnetv2_m_in21k</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>tf_efficientnetv2_s</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tf_efficientnetv2_s_in21ft1k</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>tf_efficientnetv2_s_in21k</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tf_inception_v3</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>tf_mixnet_l</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tf_mixnet_m</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>tf_mixnet_s</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tf_mobilenetv3_large_075</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>tf_mobilenetv3_large_100</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tf_mobilenetv3_large_minimal_100</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>tf_mobilenetv3_small_075</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tf_mobilenetv3_small_100</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>tf_mobilenetv3_small_minimal_100</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tv_densenet121</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>tv_resnet101</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tv_resnet152</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>tv_resnet34</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>tv_resnet50</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>tv_resnext50_32x4d</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>vovnet39a</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>vovnet57a</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>wide_resnet101_2</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>wide_resnet50_2</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>xception</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>xception41</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>xception65</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>xception71</p></td>
+<td><p>✅</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="losses.html" class="btn btn-neutral float-right" title="📉 Losses" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="encoders.html" class="btn btn-neutral float-left" title="🏔 Available Encoders" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Pavel Yakubovskiy
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
