@@ -430,15 +430,12 @@ It supports binary, multiclass and multilabel cases</p>
 <h2>MCCLoss<a class="headerlink" href="#mccloss" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="segmentation_models_pytorch.losses.MCCLoss">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">segmentation_models_pytorch.losses.</span></span><span class="sig-name descname"><span class="pre">MCCLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/segmentation_models_pytorch/losses/mcc.html#MCCLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#segmentation_models_pytorch.losses.MCCLoss" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute Mathews Correlation Coefficient Loss for image segmentation task.
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">segmentation_models_pytorch.losses.</span></span><span class="sig-name descname"><span class="pre">MCCLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/segmentation_models_pytorch/losses/mcc.html#MCCLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#segmentation_models_pytorch.losses.MCCLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute Matthews Correlation Coefficient Loss for image segmentation task.
 It only supports binary tasks</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>mode</strong> – Loss mode ‘binary’</p></li>
-<li><p><strong>eps</strong> – Small epsilon for numerical stability</p></li>
-</ul>
+<dd class="field-odd"><p><strong>eps</strong> – Small epsilon to handle situations where all the samples in the dataset belong to one class</p>
 </dd>
 </dl>
 <dl class="simple">

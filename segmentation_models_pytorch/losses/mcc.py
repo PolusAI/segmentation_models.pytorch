@@ -1,23 +1,18 @@
 import torch
 from torch.nn.modules.loss import _Loss
-from .constants import BINARY_MODE
 
-
-## Custom loss function
 
 class MCCLoss(_Loss):
     
     def __init__(
         self,
-        mode: str,
         eps: float = 1e-5
     ):  
-        """Compute Mathews Correlation Coefficient Loss for image segmentation task.
+        """Compute Matthews Correlation Coefficient Loss for image segmentation task.
         It only supports binary tasks
 
         Args:
-            mode: Loss mode 'binary'
-            eps: Small epsilon for numerical stability 
+            eps: Small epsilon to handle situations where all the samples in the dataset belong to one class
 
         Shape
              - **y_pred** - torch.Tensor of shape (N, C, H, W)
@@ -27,10 +22,7 @@ class MCCLoss(_Loss):
             https://github.com/kakumarabhishek/
 
         """
-        assert mode in {BINARY_MODE}
         super(MCCLoss, self).__init__()
-
-        self.mode = mode
         self.eps = eps
   
     def forward(self, y_pred: torch.Tensor, y_true: torch.Tensor) -> torch.Tensor:
@@ -63,7 +55,6 @@ class MCCLoss(_Loss):
             * torch.add(tn, 1, fp)
             * torch.add(tn, 1, fn)
         )
-        # Adding 1 to the denominator to avoid divide-by-zero errors.
         mcc = torch.div(numerator.sum(), denominator.sum())
         loss = 1.0 - mcc
 
