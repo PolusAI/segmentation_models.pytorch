@@ -19,7 +19,7 @@ class MCCLoss(_Loss):
              - **y_true** - torch.Tensor of shape (N, H, W)
 
         Reference
-            https://github.com/kakumarabhishek/
+            https://github.com/kakumarabhishek/MCC-Loss
 
         """
         super(MCCLoss, self).__init__()
